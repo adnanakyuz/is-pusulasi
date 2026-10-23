@@ -279,6 +279,18 @@
       en: ["maintenance technician", "maintenance fitter"], de: ["Instandhaltungsmechaniker"], nl: ["onderhoudsmonteur"],
       fr: ["technicien de maintenance"], es: ["técnico de mantenimiento"], it: ["manutentore meccanico"], pl: ["mechanik utrzymania ruchu"], ar: ["فني صيانة"]
     }),
+    m("tamir", ["ısı pompası teknisyeni", "ısı pompası montajcısı", "ısıtma sistemleri montajcısı"], {
+      en: ["heat pump installer", "heat pump technician"], de: ["Wärmepumpen Monteur", "Anlagenmechaniker SHK"], nl: ["warmtepomp monteur", "installatiemonteur"],
+      fr: ["installateur pompe à chaleur", "technicien chauffagiste"], es: ["instalador de bombas de calor"], it: ["installatore pompe di calore"], pl: ["monter pomp ciepła"], ar: ["فني تركيب مضخات حرارية"]
+    }, "Avrupa'da gaz kazanı yerine ısı pompası kurulumu hızla artıyor. Tesisat veya klima tecrübesi olanlar için geçiş yapılabilir bir alandır; bazı ülkelerde ek belge istenir."),
+    m("tamir", ["elektrikli araç teknisyeni", "elektrikli araç tamircisi", "hibrit araç teknisyeni"], {
+      en: ["electric vehicle technician", "EV technician"], de: ["Kfz-Mechatroniker Hochvolt", "Elektrofahrzeug Techniker"], nl: ["EV monteur", "automonteur elektrisch"],
+      fr: ["technicien véhicules électriques"], es: ["técnico de vehículos eléctricos"], it: ["tecnico auto elettriche"], pl: ["mechanik pojazdów elektrycznych"], ar: ["فني سيارات كهربائية"]
+    }, "Yüksek voltaj güvenliği eğitimi genelde şarttır. Oto tamircisi ya da oto elektrikçisiysen bu eğitimle iş ilanları genişler."),
+    m("tamir", ["şarj istasyonu montajcısı", "şarj cihazı kurulum elektrikçisi"], {
+      en: ["EV charger installer", "charge point installer"], de: ["Ladeinfrastruktur Monteur", "Elektroniker Ladesäulen"], nl: ["laadpaal monteur"],
+      fr: ["installateur de bornes de recharge"], es: ["instalador de puntos de recarga"], it: ["installatore colonnine di ricarica"], pl: ["monter stacji ładowania"], ar: ["فني تركيب محطات شحن"]
+    }, "Çoğu ülkede kurulumu yapacak kişinin elektrik yetki belgesi olmalıdır. Elektrikçiysen belgenin denkliğini ilgili ülkenin kurumundan sor."),
     m("tamir", ["güneş paneli montajcı", "solar montajcı", "güneş enerjisi teknisyeni"], {
       en: ["solar panel installer", "solar PV installer"], de: ["Solarteur", "PV-Monteur"], nl: ["zonnepanelen monteur"],
       fr: ["installateur photovoltaïque"], es: ["instalador de placas solares"], it: ["installatore fotovoltaico"], pl: ["monter fotowoltaiki"], ar: ["فني ألواح شمسية"]
