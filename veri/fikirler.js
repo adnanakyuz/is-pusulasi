@@ -21,6 +21,8 @@ window.DESTEKLER = {
   gencGirisim: { ad: "Genç Girişimci Vergi İstisnası", aciklama: "29 yaşını doldurmamış ve ilk kez işe başlayanlar, belli bir sınıra kadar 3 yıl gelir vergisi ödemez. Mali müşavire sor.", url: "https://www.gib.gov.tr/" },
   esnafMuafiyeti: { ad: "Esnaf Muafiyeti Belgesi", aciklama: "Evde ürettiğin ürünleri (internetten de) satabilmen ve bazı küçük işleri vergisiz yapabilmen için vergi dairesinden alınır. Yıllık satış sınırı vardır ve her yıl güncellenir.", url: "https://www.gib.gov.tr/" },
   ustalik: { ad: "Mesleki Eğitim Merkezi (Ustalık Belgesi)", aciklama: "Yıllardır bir işi yapıyor ama belgen yoksa, MEB'e bağlı Mesleki Eğitim Merkezlerinde sınavla kalfalık ve ustalık belgesi alabilirsin. İşyeri açmak için çoğu meslekte ustalık belgesi istenir.", url: "https://mtegm.meb.gov.tr/" },
+  hizmetIhracati: { ad: "Hizmet İhracatı Vergi İndirimi", aciklama: "Yurt dışındaki müşterilere verilen yazılım, tasarım, çeviri, danışmanlık gibi hizmetlerde kazancın büyük kısmı (2026 itibarıyla çoğu hizmette %80, bazı teknik hizmetlerde %100) vergi matrahından indirilebilir. Paranın beyanname tarihine kadar Türkiye'ye getirilmesi gibi şartları var; mali müşavire sor.", url: "https://www.gib.gov.tr/" },
+  icerikIstisnasi: { ad: "Sosyal İçerik Üreticiliği Vergi İstisnası", aciklama: "YouTube gibi platformlardan kazanç elde edenler, bankada bu iş için açılan özel hesaba gelen paralardan kesinti (stopaj) yapılarak belli bir sınıra kadar beyanname vermeden çalışabilir. Oran ve sınır her yıl değişir; vergi dairesine sor.", url: "https://www.gib.gov.tr/" },
   tarimDestek: { ad: "Tarım ve Orman Bakanlığı Destekleri", aciklama: "Genç çiftçi, kırsal kalkınma ve arıcılık gibi alanlarda hibe ve destek programları. İl/ilçe tarım müdürlüğünden güncel çağrıları sor.", url: "https://www.tarimorman.gov.tr/" }
 };
 
@@ -1029,5 +1031,305 @@ window.FIKIRLER = [
       "Tek bir aileye tamamen bağımlı olmak; aile gidince gelir biter."
     ],
     destekler: ["iskurKurs", "belediye"]
+  },
+
+  // ================= İNTERNETTEN KAZANMA (Ekim 2026, elle eklendi) =================
+  // platformlar: kılavuzda "Nereden başlanır?" altında gösterilir. Link eklemek için
+  // scripts/uret.mjs içindeki izinli site listesine de eklemek gerekir.
+  {
+    id: "freelance-hizmet", baslik: "Freelance platformlarda hizmet satmak", seviye: 0, yer: ["internet", "ev"], tur: "denenmis",
+    ozet: "Bildiğin bir işi (tasarım, yazı, çeviri, Excel, video kurgu…) internetteki iş pazarlarında müşteriye satmak.",
+    neIs: "Freelance (serbest çalışma) platformları, iş verenle hizmet verenin buluştuğu pazar yerleridir. Profil açarsın, hizmetlerini ve fiyatını yazarsın; müşteri ya seni bulur ya da sen onun ilanına teklif verirsin. Para çoğu zaman platformda güvencede tutulur ve iş teslim edilince sana geçer. Türkiye'deki müşteriler için Türk platformları, dünya geneli için yabancı platformlar kullanılır.",
+    kimeUygun: "Bilgisayarla yapılabilen bir becerisi olan herkes. Yabancı dil bilen dünya pazarına açılır; bilmeyen Türk platformlarıyla başlar.",
+    sermaye: "0 TL. Bilgisayar ve internet gerekir.",
+    ilkPara: "2-8 hafta. İlk müşteriyi bulmak en zor kısımdır; yorum biriktikçe hızlanır.",
+    adimlar: [
+      "Tek bir hizmet seç ve onu net tarif et: 'Logo tasarlarım' yerine 'Kafe ve restoranlara 2 günde logo'.",
+      "Kendi işlerinden 3-5 örnek hazırla; yoksa hayali bir müşteri için yap. Portföysüz profil iş almaz.",
+      "Bir Türk ve bir yabancı platformda profil aç. Profil fotoğrafı, kısa ve net açıklama, örnekler.",
+      "İlk 3-5 işi biraz düşük fiyatla al, çok hızlı ve özenli teslim et, yorum iste.",
+      "Yorumlar gelince fiyatını kademeli artır; memnun müşterilere düzenli iş teklif et.",
+      "Ödeme alma yolunu baştan çöz (yurt dışı için Payoneer gibi; PayPal Türkiye'de çalışmıyor)."
+    ],
+    yasal: "Düzenli kazançta vergi kaydı (genelde serbest meslek) gerekir ve fatura kesilir. Yurt dışındaki müşterilere verilen hizmetlerde 'hizmet ihracatı' vergi indirimi vardır. 29 yaş altıysan genç girişimci istisnasına bak. Mali müşavirle başlamak en güvenlisidir.",
+    kazanc: "Başta düşük ve düzensiz. Bir alanda uzmanlaşıp yorum biriktirenler için asgari ücretin bir ile birkaç katı arası mümkündür; yabancı müşteride döviz kazancı avantajdır.",
+    tuzaklar: [
+      "Platform dışında ödeme yapmayı teklif eden müşteri: hem platform kurallarına aykırı hem dolandırılma riski yüksek.",
+      "'Önce deneme işi yap' diye büyük işi bedava yaptırmak isteyenler.",
+      "Sana fazla para gönderip 'farkı iade et' diyen müşteri: klasik dolandırıcılıktır.",
+      "Sınırsız revizyon sözü vermek; teklifte kaç düzeltme olduğunu yaz.",
+      "Platform komisyonunu ve ödeme çekme ücretlerini fiyata katmamak."
+    ],
+    platformlar: [
+      { ad: "Bionluk (Türkiye)", url: "https://bionluk.com/" },
+      { ad: "Armut (Türkiye, yerel hizmetler)", url: "https://armut.com/" },
+      { ad: "Upwork", url: "https://www.upwork.com/" },
+      { ad: "Fiverr", url: "https://www.fiverr.com/" }
+    ],
+    destekler: ["hizmetIhracati", "gencGirisim", "iskurGirisim"]
+  },
+  {
+    id: "yapay-zeka-egitmenligi", baslik: "Yapay zekâ eğitimi ve veri etiketleme (Türkçe)", seviye: 0, yer: ["internet", "ev"], tur: "yukselen",
+    ozet: "Yapay zekâ şirketlerine Türkçe cevapları değerlendirmek, düzeltmek, ses kaydı ve veri etiketlemek.",
+    neIs: "Yapay zekâ modellerinin Türkçeyi iyi öğrenmesi için insanların cevapları puanlaması, hatalı metinleri düzeltmesi, örnek sorular yazması, fotoğraf ya da ses etiketlemesi gerekir. Bu işler internetten, proje bazlı ve saatlik ücretle verilir. Bazı projeler uzmanlık ister (hukuk, tıp, mühendislik, yazılım).",
+    kimeUygun: "Türkçesi düzgün, dikkatli, talimatları okuyup uygulayan kişiler. İngilizce bilmek çoğu platform için gereklidir; bir alanda uzmanlık ücreti artırır.",
+    sermaye: "0 TL. Bilgisayar ve iyi internet.",
+    ilkPara: "2-6 hafta. Başvuru, sınav ve kabul süreci olur.",
+    adimlar: [
+      "Platformların sitesinden ülke ve dil şartlarına bak; Türkiye'den kabul edip etmediklerini ve ödemeyi nasıl yaptıklarını öğren.",
+      "Başvuru sınavına hazırlan: talimatları dikkatle oku, acele etme. Kalite puanı her şeydir.",
+      "Kabul edilince küçük işlerle başla; kalite puanın yükseldikçe daha iyi projeler açılır.",
+      "Tek platforma bağlı kalma; projeler bitebilir ve iş birden kesilebilir.",
+      "Çalıştığın saatleri ve aldığın ödemeleri kendin kaydet."
+    ],
+    yasal: "Yurt dışı şirketlerden düzenli gelir elde etmek vergi kaydı gerektirir; hizmet ihracatı indirimi uygulanabilir. Gizlilik sözleşmesi imzalarsın: üzerinde çalıştığın verileri paylaşma.",
+    kazanc: "Proje varken saatlik ödeme döviz bazında iyi olabilir; ama iş sürekli değildir, haftalarca proje çıkmayabilir. Ana gelir değil, güçlü bir ek gelir olarak düşün.",
+    tuzaklar: [
+      "Gerçek platformlar başvuru ya da eğitim ücreti istemez. 'Yapay zekâ eğitmeni ol, önce kurs/paket al' diyenler dolandırıcıdır.",
+      "WhatsApp ya da Telegram'dan 'AI trainer işi' teklif edenler: çoğu görev dolandırıcılığıdır.",
+      "Kimlik ve banka bilgilerini yalnızca resmî platformun kendi sitesinde ver.",
+      "Projenin aniden bitmesine hazırlıksız olmak."
+    ],
+    platformlar: [
+      { ad: "Outlier", url: "https://outlier.ai/" },
+      { ad: "DataAnnotation", url: "https://www.dataannotation.tech/" },
+      { ad: "TELUS Digital (AI Community)", url: "https://www.telusdigital.com/" }
+    ],
+    destekler: ["hizmetIhracati", "gencGirisim"]
+  },
+  {
+    id: "rent-a-human", baslik: "Yapay zekâ ajanlarına gerçek dünya görevleri (RentAHuman gibi)", seviye: 0, yer: ["disari", "internet"], tur: "yukselen",
+    ozet: "Yapay zekâ programlarının yapamadığı fiziksel işleri (fotoğraf çekmek, bir yeri kontrol etmek, belge teslim etmek) ücret karşılığı yapmak.",
+    neIs: "2026'da yeni bir model ortaya çıktı: Yapay zekâ ajanları, yani insanların yerine iş takip eden programlar, gerçek dünyada bir şey yapılması gerektiğinde insan kiralıyor. RentAHuman bu işin ilk ve en bilinen platformu (Şubat 2026'da açıldı). Profil açıp becerilerini, konumunu ve ücretini yazıyorsun; ajanlar sana görev gönderiyor: bir mağazanın açık olup olmadığını fotoğraflamak, bir ürünü yerinde kontrol etmek, bir etkinliğe katılıp not almak gibi.",
+    kimeUygun: "Büyük şehirde yaşayan, hareketli, yeni teknolojiyi denemeyi seven kişiler. Şimdilik ek gelir ve deneme olarak uygun.",
+    sermaye: "0 TL. Akıllı telefon.",
+    ilkPara: "Belirsiz. Platformlarda kayıtlı insan sayısı iş sayısından çok fazla; ilk görev haftalar sürebilir.",
+    adimlar: [
+      "Platformun kurallarını, ödeme yöntemini ve ücret kesintilerini dikkatle oku.",
+      "Profilinde gerçek becerilerini ve bulunduğun şehri yaz; dil bilgini belirt.",
+      "Görevi kabul etmeden önce ne istendiğini, nereye gideceğini ve ödemenin nasıl güvenceye alındığını kontrol et.",
+      "Her görevi fotoğraf ve notla belgelendir.",
+      "Bunu ana gelir değil, yeni bir alanı tanıma fırsatı olarak gör."
+    ],
+    yasal: "Elde ettiğin kazanç vergiye tabidir. Ödeme kripto parayla yapılıyorsa, kripto varlıkların Türkiye'deki vergi ve SPK kurallarına dikkat et ve yalnızca izinli kripto platformlarını kullan. Bir yere girmek, birini fotoğraflamak ya da bir şey teslim etmek yasal sınırlar içinde olmalı.",
+    kazanc: "Şu an düzensiz ve küçük. Görev başına ücretler çok değişken; düzenli gelir beklemek gerçekçi değil.",
+    tuzaklar: [
+      "Para ya da paket taşımak, adına hesap açmak, bir yerden nakit almak gibi görevler: bunlar dolandırıcılık parasını taşıyan 'para katırı' işleridir ve suçtur. Kesinlikle reddet.",
+      "Başka birinin izinsiz fotoğrafını çekmek ya da özel mülke girmek gibi kişisel verileri ve mahremiyeti ihlal eden görevler.",
+      "Ödemenin yalnızca kripto ile yapılması: çekme ve çevirme masraflarını ve vergiyi hesaba kat, izinsiz kripto platformlarından uzak dur.",
+      "Görev için önce senden para ödemeni isteyen herkes dolandırıcıdır.",
+      "Gece, tenha ya da tanımadığın bir yere tek başına gitmek."
+    ],
+    platformlar: [
+      { ad: "RentAHuman", url: "https://rentahuman.ai/" }
+    ],
+    destekler: ["gencGirisim"]
+  },
+  {
+    id: "online-dil-ogretmenligi", baslik: "İnternetten Türkçe ya da yabancı dil öğretmenliği", seviye: 0, yer: ["internet", "ev"], tur: "denenmis",
+    ozet: "Dünyanın her yerinden öğrencilere görüntülü dersle Türkçe ya da bildiğin bir dili öğretmek.",
+    neIs: "Türkçe öğrenmek isteyen yabancılar (Türk dizileri, iş, evlilik, göç nedeniyle) ve yurt dışındaki Türk ailelerin çocukları sürekli öğretmen arar. Dil öğretme platformlarında profil açıp kendi saatlik ücretini belirlersin; dersler görüntülü yapılır. Konuşma pratiği için öğretmenlik diploması şart olmayan platformlar da var.",
+    kimeUygun: "Türkçesi düzgün, sabırlı, konuşmayı seven kişiler. İngilizce ya da başka bir dil bilmek öğrenci kitlesini büyütür.",
+    sermaye: "0 TL. Bilgisayar, kulaklık, iyi internet. Zamanla basit bir mikrofon ve ışık.",
+    ilkPara: "2-6 hafta.",
+    adimlar: [
+      "Platformların öğretmen şartlarına bak (bazıları diploma, bazıları yalnızca konuşma pratiği ister).",
+      "Kısa ve samimi bir tanıtım videosu çek; öğrenciler en çok buna bakar.",
+      "Başta ortalamanın biraz altında fiyatla başla; ilk yorumlar gelince artır.",
+      "Kendi ders planlarını hazırla: başlangıç seviyesi, dizi Türkçesi, iş Türkçesi gibi.",
+      "Düzenli öğrencilere paket ders sun."
+    ],
+    yasal: "Yurt dışındaki öğrencilerden gelir düzenliyse vergi kaydı gerekir; hizmet ihracatı indirimi uygulanabilir. Platformun kendi sözleşme ve iptal kurallarını oku.",
+    kazanc: "Haftada 10-15 saat dersle döviz bazında güzel bir ek gelir; dolu bir programla asgari ücretin üstü mümkündür.",
+    tuzaklar: [
+      "Platform komisyonunu hesaba katmamak (ilk derslerde kesinti yüksek olabilir).",
+      "Saat farkı yüzünden uykusuz bir program kurmak.",
+      "Öğrenciyi platform dışına çekmek: çoğu platformda yasaktır ve hesabın kapatılabilir."
+    ],
+    platformlar: [
+      { ad: "Preply", url: "https://preply.com/" },
+      { ad: "italki", url: "https://www.italki.com/" }
+    ],
+    destekler: ["hizmetIhracati", "halkEgitim"]
+  },
+  {
+    id: "sanal-asistanlik", baslik: "Sanal asistanlık", seviye: 0, yer: ["internet", "ev"], tur: "yukselen",
+    ozet: "Yoğun iş insanlarına ve küçük şirketlere internetten e-posta, randevu, müşteri mesajı ve evrak düzeni işlerinde yardım.",
+    neIs: "Bir sekreterin ya da asistanın yaptığı işleri uzaktan yapmak: e-postaları düzenlemek, randevu ayarlamak, müşteri mesajlarına cevap vermek, faturaları takip etmek, Excel tabloları hazırlamak, sosyal medya mesajlarını yönetmek. Aylık paket ya da saatlik ücretle çalışılır.",
+    kimeUygun: "Düzenli, güvenilir, bilgisayarı ve ofis programlarını iyi kullanan kişiler. Yabancı dil bilen yurt dışı müşteri bulabilir.",
+    sermaye: "0 TL. Bilgisayar ve internet.",
+    ilkPara: "2-6 hafta.",
+    adimlar: [
+      "Hangi işleri yapabildiğini listele ve bir hizmet paketi oluştur (ör. ayda 20 saat).",
+      "Türk küçük işletmelerden başla: emlakçı, doktor muayenehanesi, e-ticaret satıcısı.",
+      "Freelance platformlarında profil aç ve 'sanal asistan' ilanlarına teklif ver.",
+      "Müşterinin şifre ve hesaplarına erişirken güvenli şifre yöneticisi kullan; her şeyi yazılı anlaşmayla yap.",
+      "Haftalık kısa rapor gönder: ne yaptın, ne bekliyor."
+    ],
+    yasal: "Düzenli kazançta vergi kaydı gerekir. Müşterinin kişisel verilerine erişirsin; KVKK kurallarına ve gizlilik anlaşmasına uy.",
+    kazanc: "Birkaç sabit müşteriyle asgari ücrete yakın ya da üstü; yabancı müşteride döviz.",
+    tuzaklar: [
+      "Müşteri adına para göndermek, banka hesabı açmak gibi işler: dolandırıcılığa alet olma riski.",
+      "Sınırsız ulaşılabilir olmak; çalışma saatlerini baştan belirle.",
+      "Sözleşmesiz çalışıp ücretini alamamak."
+    ],
+    platformlar: [
+      { ad: "Upwork", url: "https://www.upwork.com/" },
+      { ad: "Bionluk", url: "https://bionluk.com/" }
+    ],
+    destekler: ["hizmetIhracati", "gencGirisim", "iskurKurs"]
+  },
+  {
+    id: "web-sitesi-kurulumu", baslik: "Küçük işletmelere web sitesi kurmak (kod bilmeden)", seviye: 0, yer: ["internet", "ev"], tur: "denenmis",
+    ozet: "Hazır site kurma araçlarıyla esnafa ve küçük şirketlere tanıtım sitesi, menü ya da randevu sayfası yapmak.",
+    neIs: "Kod bilmeden sürükle-bırak araçlarla güzel siteler yapılabiliyor. Berber, kafe, diş hekimi, usta gibi küçük işletmelerin çoğunun hâlâ düzgün bir sitesi ya da Google Haritalar kaydı yok. Site kurulumu + Google kaydı + aylık bakım paketi sunarsın.",
+    kimeUygun: "Bilgisayarı iyi kullanan, görsel zevki olan, öğrenmeye istekli kişiler.",
+    sermaye: "0 TL. Alan adı ve barındırma ücretini müşteri öder.",
+    ilkPara: "1-2 ay (öğrenme dahil).",
+    adimlar: [
+      "Ücretsiz site kurma araçlarından birini öğren ve kendine bir örnek site yap.",
+      "Bir tanıdığın işletmesine ücretsiz ya da çok uygun fiyata ilk siteyi yap; portföyünü oluştur.",
+      "Paket hazırla: kurulum ücreti + aylık bakım (güncelleme, yedek, küçük değişiklikler).",
+      "İşletmenin Google Haritalar kaydını da yap; çoğu müşteri için en büyük fayda budur.",
+      "Teslimde siteyi müşterinin kendi hesabına kur; şifreleri ona ver."
+    ],
+    yasal: "Düzenli kazançta vergi kaydı gerekir. Sitelerde KVKK aydınlatma metni ve çerez bildirimi gerekebilir; müşteriyi bilgilendir. Başkasının fotoğrafını ya da logosunu izinsiz kullanma.",
+    kazanc: "Site başı ücret + aylık bakım gelirleri birikerek düzenli bir gelire dönüşebilir.",
+    tuzaklar: [
+      "Siteyi kendi hesabına kurup müşteriyi sana bağımlı bırakmak; güven kaybettirir.",
+      "Bitmeyen değişiklik istekleri; pakette ne olduğunu yaz.",
+      "Telifli görsel kullanıp müşteriyi davayla karşı karşıya bırakmak."
+    ],
+    destekler: ["gencGirisim", "iskurKurs", "kosgeb"]
+  },
+  {
+    id: "kullanici-testi", baslik: "Site ve uygulama testi (kullanıcı testi)", seviye: 0, yer: ["internet", "ev"], tur: "yukselen",
+    ozet: "Şirketlerin yeni sitelerini ve uygulamalarını kullanıp sesli olarak yorumlamak, hata bulmak.",
+    neIs: "Şirketler yeni bir uygulamayı yayına almadan önce gerçek insanların onu nasıl kullandığını görmek ister. Ekranını ve sesini kaydederek görevleri yaparsın ('bir ürün bul, sepete ekle') ve düşüncelerini sesli anlatırsın. Bazı platformlar hata (bug) bulmaya da ödeme yapar.",
+    kimeUygun: "Telefonu ve bilgisayarı iyi kullanan, düşüncesini açıkça anlatabilen kişiler. İngilizce bilmek iş sayısını çok artırır.",
+    sermaye: "0 TL. Bilgisayar, mikrofon, akıllı telefon.",
+    ilkPara: "1-4 hafta.",
+    adimlar: [
+      "Platformlarda profil aç ve demografik bilgilerini doğru doldur; testler buna göre gelir.",
+      "Örnek test sınavını dikkatle yap; sesli düşünmeyi öğren.",
+      "Bildirimleri açık tut; testler hızla dolar.",
+      "Birden fazla platformda kayıtlı ol; tek başına bir platform düzenli iş vermez."
+    ],
+    yasal: "Düzenli kazançta vergi kaydı gerekir. Test ettiğin ürünler gizlidir; gizlilik anlaşmasına uy.",
+    kazanc: "Ek gelir. Türkçe test sayısı az olduğundan düzenli gelir beklemek gerçekçi değil.",
+    tuzaklar: [
+      "'Uygulama test et, para kazan' diyen ama önce yatırım isteyen uygulamalar: görev dolandırıcılığıdır.",
+      "Testlerin aniden gelmemesi; ana gelire güvenme."
+    ],
+    platformlar: [
+      { ad: "UserTesting", url: "https://www.usertesting.com/" }
+    ],
+    destekler: ["hizmetIhracati"]
+  },
+  {
+    id: "altyazi-transkripsiyon", baslik: "Ses kaydını yazıya dökme ve altyazı", seviye: 0, yer: ["internet", "ev"], tur: "denenmis",
+    ozet: "Röportaj, toplantı, podcast ve videoların konuşmalarını yazıya dökmek, altyazı hazırlamak.",
+    neIs: "Akademisyenler, gazeteciler, YouTube kanalları ve şirketler konuşmaların yazıya dökülmesine ve videolara altyazı eklenmesine ihtiyaç duyar. Bugün işin ilk kısmını yapay zekâ yapıyor; senin değerin, onun hatalarını düzelten, isimleri, terimleri ve zaman kodlarını doğru yapan dikkatli insan olman.",
+    kimeUygun: "Türkçe yazımı iyi, dikkatli, hızlı klavye kullanan kişiler. Bir yabancı dil bilmek altyazı çevirisine kapı açar.",
+    sermaye: "0 TL. Bilgisayar ve iyi bir kulaklık.",
+    ilkPara: "2-4 hafta.",
+    adimlar: [
+      "Ücretsiz altyazı programlarını öğren (zaman kodu, satır uzunluğu kuralları).",
+      "Yapay zekâ ile ilk taslağı çıkarıp kendin düzeltme düzenini kur; hızın katlanır.",
+      "Kendi örnek işini hazırla (ör. bir kamu videosuna altyazı).",
+      "Freelance platformlarında ve YouTube kanallarına doğrudan teklif ver.",
+      "Fiyatı ses dakikası başına belirle; zor ses ve çok konuşmacı için ek ücret al."
+    ],
+    yasal: "Düzenli kazançta vergi kaydı gerekir. Ses kayıtları gizli bilgi içerebilir; kimseyle paylaşma ve işi bitince sil.",
+    kazanc: "Ek gelir olarak iyi; düzenli kanal ve şirket müşterileriyle asgari ücrete yaklaşabilir.",
+    tuzaklar: [
+      "Yapay zekâ çıktısını kontrol etmeden teslim etmek.",
+      "Ödeme almadan uzun kayıtlar üzerinde çalışmak."
+    ],
+    platformlar: [
+      { ad: "Bionluk", url: "https://bionluk.com/" },
+      { ad: "Upwork", url: "https://www.upwork.com/" }
+    ],
+    destekler: ["hizmetIhracati", "gencGirisim"]
+  },
+  {
+    id: "stok-icerik-tasarim", baslik: "Stok fotoğraf, video ve baskılı ürün tasarımı satmak", seviye: 0, yer: ["internet", "ev"], tur: "denenmis",
+    ozet: "Çektiğin fotoğrafları ve yaptığın tasarımları stok sitelerinde ve tişört, kupa gibi baskılı ürünlerde satmak.",
+    neIs: "Stok sitelerine yüklediğin fotoğraf ve videolar her indirildiğinde küçük bir telif ücreti alırsın. 'Baskıya göre üretim' sitelerinde ise tasarımını yüklersin; biri tişört, kupa, poster sipariş edince site basar, gönderir ve sana pay öder. Stok tutmazsın, kargo yapmazsın.",
+    kimeUygun: "Fotoğraf çekmeyi ya da tasarım yapmayı seven, sabırla çok sayıda içerik üretebilen kişiler.",
+    sermaye: "0 TL. İyi bir telefon kamerası ya da ücretsiz tasarım programları yeterli.",
+    ilkPara: "1-6 ay. İlk satışlar yavaş gelir; kazanç içerik sayısıyla büyür.",
+    adimlar: [
+      "Bir konu seç: Türkiye manzaraları, yöresel yemekler, yerel kültür gibi yabancı sitelerde az bulunan içerikler avantajlıdır.",
+      "Sitelerin teknik ve hukuki kurallarını öğren: tanınabilir kişiler için model izni, marka logosu yasağı.",
+      "Her hafta düzenli olarak yeni içerik yükle; anahtar kelimeleri (İngilizce) dikkatle yaz.",
+      "Baskılı ürün sitelerinde bir tarz seç ve tutarlı bir koleksiyon oluştur.",
+      "Hangi içeriklerin sattığını izle, onlara benzer içerik üret."
+    ],
+    yasal: "Düzenli kazançta vergi kaydı gerekir. İnsan fotoğraflarında yazılı izin (model sözleşmesi) şarttır. Yapay zekâyla üretilen görseller için sitelerin ayrı kuralları vardır; çoğu bunun belirtilmesini ister.",
+    kazanc: "Yavaş birikir. Yüzlerce içerikten sonra düzenli küçük bir ek gelir; ana gelir olması nadirdir.",
+    tuzaklar: [
+      "Başkasının tasarımını, markasını ya da karakterini kopyalamak: hesabın kapanır ve dava riski doğar.",
+      "Az sayıda içerikle hemen kazanç beklemek.",
+      "'Hazır tasarım paketi al, pasif gelir kazan' diye kurs satanlar."
+    ],
+    platformlar: [
+      { ad: "Shutterstock (katkıda bulunan)", url: "https://submit.shutterstock.com/" },
+      { ad: "Adobe Stock (katkıda bulunan)", url: "https://contributor.stock.adobe.com/" },
+      { ad: "Etsy", url: "https://www.etsy.com/" }
+    ],
+    destekler: ["hizmetIhracati", "gencGirisim"]
+  },
+  {
+    id: "icerik-ureticiligi", baslik: "YouTube ve kısa video içerik üreticiliği", seviye: 0, yer: ["internet", "ev"], tur: "denenmis",
+    ozet: "Bildiğin bir konuda video çekip izlenme, reklam ve iş birlikleriyle kazanmak.",
+    neIs: "Kendi mesleğini, hobini ya da bilgini videolarla anlatmak: ustalık püf noktaları, yurt dışında çalışma deneyimi, yemek, tamir, köy hayatı… Kanal büyüyünce reklam geliri, sponsorluk ve kendi ürünlerinle kazanç gelir. Gerçek deneyim anlatan, samimi kanallar öne çıkar.",
+    kimeUygun: "Anlatmayı seven, aylarca karşılıksız düzenli üretmeye sabırlı kişiler.",
+    sermaye: "0 TL. Telefon yeterli; zamanla mikrofon ve ışık.",
+    ilkPara: "Genelde 6-18 ay. Reklam geliri için platformun abone ve izlenme şartlarını geçmek gerekir.",
+    adimlar: [
+      "Dar bir konu seç: 'Yemek' yerine 'Şantiye işçileri için pratik yemekler' gibi.",
+      "İlk 20-30 videoyu öğrenme süreci olarak gör; her videoda bir şeyi geliştir.",
+      "Haftada belirli günlerde düzenli paylaş.",
+      "İzleyici yorumlarından yeni video fikirleri çıkar.",
+      "Reklam şartlarını geçince gelir hesabını kur; iş birliklerinde reklam olduğunu açıkça belirt."
+    ],
+    yasal: "Sosyal içerik üreticileri için bankada açılan özel hesapla çalışan bir vergi istisnası vardır; sınırı aşınca normal vergi kaydı gerekir. Reklam ve iş birliklerinde 'reklam' etiketi zorunludur (Ticaret Bakanlığı kuralları). Başkasının müziğini ve görüntüsünü izinsiz kullanma.",
+    kazanc: "Çok belirsiz. Kanalların büyük çoğunluğu kayda değer para kazanmaz; başaranlar için ciddi gelir olabilir. Ana gelir bırakılarak başlanacak bir iş değildir.",
+    tuzaklar: [
+      "Abone ya da izlenme satın almak: kanal kapatılabilir.",
+      "'Kanalını büyütürüz' diye para isteyen ajanslar ve kurslar.",
+      "Ünlü olmak için tehlikeli ya da yasa dışı içerik üretmek."
+    ],
+    platformlar: [
+      { ad: "YouTube", url: "https://www.youtube.com/" }
+    ],
+    destekler: ["icerikIstisnasi", "gencGirisim"]
+  },
+  {
+    id: "dijital-urun", baslik: "Dijital ürün satışı (şablon, planlayıcı, e-kitap)", seviye: 0, yer: ["internet", "ev"], tur: "yukselen",
+    ozet: "Bir kere hazırlayıp çok kez satılan dijital ürünler: Excel şablonları, planlayıcılar, rehberler, CV şablonları.",
+    neIs: "Bir konuda bildiğini indirilebilir bir ürüne çevirirsin: esnaf için gelir-gider Excel'i, öğrenci ders planlayıcısı, 'Almanya'ya çalışmaya gitme rehberi', CV şablonu gibi. Pazar yerlerine ya da kendi sayfana yüklersin; her satışta kargo ya da stok derdi olmadan para kazanırsın.",
+    kimeUygun: "Bir konuda pratik bilgisi olan ve bunu düzenli, kullanışlı bir belgeye dönüştürebilen kişiler.",
+    sermaye: "0 TL. Ücretsiz tasarım ve ofis programları yeterli.",
+    ilkPara: "1-3 ay.",
+    adimlar: [
+      "İnsanların sorduğu ve çözüm aradığı bir sorunu bul (kendi tecrübenden başla).",
+      "Küçük, gerçekten işe yarayan bir ürün yap; uzun e-kitap değil, kısa ve uygulanabilir rehber.",
+      "Güzel bir önizleme görseli hazırla; ne aldığını net göster.",
+      "Pazar yerinde ya da kendi sosyal medyanda yayınla; ilk alıcılardan yorum iste.",
+      "Satılan ürünü geliştir, aynı alanda ikinci ürünü yap."
+    ],
+    yasal: "Düzenli satışta vergi kaydı gerekir; yurt dışına satışta hizmet ihracatı kuralları uygulanabilir. Başkasının içeriğini kopyalayıp satmak telif ihlalidir.",
+    kazanc: "Küçük başlar; iyi bir ürün aylarca, yıllarca satabilir. Çoğu ürün az satar, birkaçı tutar.",
+    tuzaklar: [
+      "'Hazır dijital ürün paketi al, kendi adınla sat' diye satılan paketler: herkes aynı ürünü satıyor, çoğu telif sorunlu.",
+      "Abartılı vaatlerle ürün satmak ('bu rehberle zengin ol'): müşteri şikâyeti ve iade getirir."
+    ],
+    platformlar: [
+      { ad: "Etsy", url: "https://www.etsy.com/" },
+      { ad: "Gumroad", url: "https://gumroad.com/" }
+    ],
+    destekler: ["hizmetIhracati", "gencGirisim"]
   }
 ];

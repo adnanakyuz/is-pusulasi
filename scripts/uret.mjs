@@ -57,7 +57,11 @@ const IZINLI = ["indeed.com", "adzuna.co.uk", "adzuna.com", "adzuna.de", "adzuna
   "jobbank.gc.ca", "canada.ca", "seek.com.au", "seek.co.nz", "immi.homeaffairs.gov.au", "gov.uk", "make-it-in-germany.com",
   "migration.gv.at", "kariyer.net", "google.com", "linkedin.com", "gov.tr", "flagcdn.com",
   // Saadet zinciri sayfasındaki vaka kaynakları ve resmî kurumlar
-  "bddk.org.tr", "ntv.com.tr", "bloomberght.com", "hurriyet.com.tr", "cnbc.com", "justice.gov", "fbi.gov"];
+  "bddk.org.tr", "ntv.com.tr", "bloomberght.com", "hurriyet.com.tr", "cnbc.com", "justice.gov", "fbi.gov",
+  // İnternetten kazanma platformları (yalnızca elle eklenir)
+  "bionluk.com", "armut.com", "upwork.com", "fiverr.com", "outlier.ai", "dataannotation.tech", "telusdigital.com",
+  "rentahuman.ai", "preply.com", "italki.com", "usertesting.com", "shutterstock.com", "stock.adobe.com", "etsy.com",
+  "gumroad.com", "youtube.com"];
 for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js"]) {
   for (const [, alan] of fs.readFileSync(path.join(KOK, f), "utf8").matchAll(/https?:\/\/([^/"'{\s?]+)/g)) {
     if (!IZINLI.some((i) => alan === i || alan.endsWith("." + i))) hatalar.push(f + ": izinsiz site linki " + alan);
@@ -107,6 +111,7 @@ ${ekBas}</head>
     <nav class="menu" aria-label="Ana menü">
       ${nav("İş Ara", "", "ara")}
       ${nav("İş Fikirleri", "fikirler/", "fikirler")}
+      ${nav("İnternetten Kazan", "internetten-para-kazanma/", "internet")}
       ${nav("Meslekler", "meslekler/", "meslekler")}
     </nav>
     <button type="button" class="kur-dugme" id="kur" hidden>Uygulamayı yükle</button>
@@ -124,6 +129,7 @@ ${icerik}
     <nav aria-label="Alt menü">
       <a href="${kok}">İş Ara</a>
       <a href="${kok}fikirler/">İş Fikirleri</a>
+      <a href="${kok}internetten-para-kazanma/">İnternetten Kazan</a>
       <a href="${kok}meslekler/">Bütün Meslekler</a>
       <a href="${kok}tuzaklar/">İş Tuzakları</a>
       <a href="${kok}saadet-zinciri/">Saadet Zincirinden Korun</a>
@@ -210,7 +216,8 @@ yaz("", sayfa({
     <div class="bolum-bas"><h2 class="bolum-baslik">İşsiz misin? Sermayesiz başlanabilecek işler</h2><a href="fikirler/">Bütün iş fikirleri →</a></div>
     <div class="fikirler">${ucuzlar.map((f) => fikirKart(f, "")).join("")}</div>
   </section>
-  <a class="tuzak-serit blok" href="tuzaklar/"><b>⚠️ Önce para isteyen iş tuzaklarını öğren</b><span>Evde paketleme, IBAN kiralama, yurt dışı iş vaadiyle vize parası… Nasıl tanınır?</span></a>
+  <a class="tuzak-serit bilgi-serit blok" href="internetten-para-kazanma/"><b>💻 İnternetten para kazanma yolları</b><span>Evden yapılabilen gerçekçi işler: freelance, yapay zekâ eğitimi, online dil öğretmenliği ve daha fazlası.</span></a>
+  <a class="tuzak-serit" href="tuzaklar/"><b>⚠️ Önce para isteyen iş tuzaklarını öğren</b><span>Evde paketleme, IBAN kiralama, yurt dışı iş vaadiyle vize parası… Nasıl tanınır?</span></a>
   <a class="tuzak-serit" href="saadet-zinciri/"><b>🛡️ Saadet zincirinden korun</b><span>Çiftlik Bank, Thodex, OneCoin… Gerçek vakalar, 10 tehlike işareti ve davet edilince sorulacak 5 soru.</span></a>
 </div>`
 }));
@@ -225,6 +232,7 @@ yaz("fikirler/", sayfa({
     <h1>Sermayene göre iş fikirleri</h1>
     <p class="giris">Denenmiş, tutan işler ve Türkiye'de ve dünyada yeni yükselen iş modelleri. Her fikrin adım adım kılavuzu, yasal kısmı ve tuzakları içinde. Ucuz olanlar en üstte.</p>
   </section>
+  <a class="tuzak-serit bilgi-serit" href="../internetten-para-kazanma/"><b>💻 İnternetten para kazanma yolları</b><span>Freelance, yapay zekâ eğitimi, RentAHuman, online öğretmenlik… Ödeme alma ve vergi rehberiyle.</span></a>
   <a class="tuzak-serit" href="../tuzaklar/"><b>⚠️ Başlamadan önce oku: Önce para isteyen iş tuzakları</b><span>Bir iş için önce sen para ödüyorsan, o iş değildir.</span></a>
   <div class="filtreler" id="filtreler">
     <div class="filtre-satir" data-grup="seviye"><button type="button" class="cip secili" data-deger="hepsi">Bütün sermayeler</button>${SEVIYELER.map((s, i) => `<button type="button" class="cip" data-deger="${i}">${kacis(s.ad)}</button>`).join("")}</div>
@@ -262,6 +270,7 @@ for (const f of FIKIRLER) {
     </div>
     <h2>Bu iş nedir?</h2><p>${kacis(f.neIs)}</p>
     <h2>İlk müşteriye kadar adım adım</h2>${liste(f.adimlar, "ol")}
+    ${f.platformlar?.length ? `<h2>Nereden başlanır?</h2><div class="site-dugmeler">${f.platformlar.map((pl) => `<a href="${kacis(pl.url)}" target="_blank" rel="noopener nofollow">${kacis(pl.ad)} ↗</a>`).join("")}</div><p class="kaynak">Bu platformlarla bir bağımız yok. Üye olmadan önce ücretlerini, ödeme yöntemlerini ve Türkiye'den kabul edip etmediklerini kendi sitelerinden kontrol et.</p>` : ""}
     <h2>Yasal kısım</h2><p>${kacis(f.yasal)}</p>
     <h2>Gerçekçi kazanç beklentisi</h2><p>${kacis(f.kazanc)}</p>
     <p class="kaynak">Kazançlar şehre, emeğe ve mevsime göre çok değişir. Buradaki bilgiler söz değil, yön göstermek içindir.</p>
@@ -326,6 +335,65 @@ yaz("tuzaklar/", sayfa({
   <div class="not-kutu blok"><b>Dolandırıldıysan</b><br>Vakit kaybetmeden bankanı ara ve hesabı durdurt; ardından savcılığa ya da en yakın karakola şikâyette bulun. Mesajları, dekontları ve ilanın ekran görüntülerini sakla.</div>
 </article></div>`
 }));
+
+// ---------------- İnternetten para kazanma rehberi ----------------
+{
+  const internetFikirleri = FIKIRLER.filter((f) => f.yer.includes("internet")).sort((a, b) => a.seviye - b.seviye);
+  yaz("internetten-para-kazanma/", sayfa({
+    yol: "internetten-para-kazanma/", aktif: "internet", baslik: "İnternetten para kazanma yolları",
+    aciklama: "Freelance, yapay zekâ eğitimi, RentAHuman, online dil öğretmenliği, sanal asistanlık ve " + internetFikirleri.length + " gerçekçi yol: nasıl başlanır, ödeme nasıl alınır, vergi ve dolandırıcılık uyarıları.",
+    icerik: `
+<div class="sayfa">
+  <section class="sayfa-bas">
+    <h1>İnternetten para kazanma yolları</h1>
+    <p class="giris">Evden, bilgisayarla ya da telefonla yapılabilen ${internetFikirleri.length} gerçekçi yol. Her birinin adım adım kılavuzu, hangi sitelerden başlanacağı, vergi kısmı ve tuzakları içinde.</p>
+  </section>
+  <div class="bilgi-kutu"><b>Önce üç gerçek:</b>
+    <ol class="sik">
+      <li><b>Kolay para yoktur.</b> İnternetten kazanmak da bir iştir; ilk müşteri ve ilk para genelde haftalar ya da aylar sürer.</li>
+      <li><b>Gerçek iş sana para öder.</b> Başlamak için senden kurs, paket, "aktivasyon" ya da "vergi" parası isteyen her şey dolandırıcılıktır.</li>
+      <li><b>Platformlar komisyon alır.</b> Fiyatını komisyon ve para çekme ücretlerini hesaba katarak belirle.</li>
+    </ol>
+  </div>
+
+  <section class="blok">
+    <h2 class="bolum-baslik">Yollar</h2>
+    <div class="fikirler">${internetFikirleri.map((f) => fikirKart(f, "../")).join("")}</div>
+  </section>
+
+  <section class="blok sayfa-dar-ic">
+    <h2 class="bolum-baslik">Yurt dışından ödeme nasıl alınır?</h2>
+    <ul class="sik">
+      <li><b>PayPal Türkiye'de çalışmıyor.</b> Yurt dışı müşteriler ve platformlar için Türkiye'den en yaygın kullanılan yol Payoneer gibi ödeme hizmetleridir.</li>
+      <li>Birçok platform doğrudan bankandaki <b>döviz hesabına</b> (SWIFT ile) ödeme yapabilir; bankanın gelen havale ücretini sor.</li>
+      <li>Ödeme servislerinin Türkiye'deki durumu zaman zaman değişiyor. Hesap açmadan önce servisin güncel Türkiye kurallarına ve komisyonlarına bak.</li>
+      <li>Kripto parayla ödeme alıyorsan yalnızca SPK'dan izinli kripto platformlarını kullan.</li>
+    </ul>
+    <h2 class="bolum-baslik">Vergi</h2>
+    <ul class="sik">
+      <li>Ara sıra küçük işler dışında, düzenli internet kazancı için vergi kaydı gerekir. Çoğu internet işi <b>serbest meslek</b> sayılır.</li>
+      <li>Yurt dışındaki müşterilere verilen hizmetlerde <b>hizmet ihracatı</b> indirimi vardır: kazancın büyük kısmı vergiden düşülebilir.</li>
+      <li>YouTube gibi platformlardan kazananlar için <b>sosyal içerik üreticiliği istisnası</b> vardır (bankada özel hesapla).</li>
+      <li>29 yaş altıysan <b>genç girişimci istisnasına</b> bak.</li>
+      <li>Şartlar her yıl değişir. Başlamadan önce bir mali müşavirle bir kez konuşmak en ucuz güvencedir.</li>
+    </ul>
+  </section>
+
+  <section class="blok sayfa-dar-ic">
+    <h2 class="bolum-baslik tehlike-baslik">İnternetteki iş tuzakları</h2>
+    <ul class="sik">
+      <li><b>Görev karşılığı para:</b> "Beğen, yorum yaz, ürün siparişi işle, kazan." İlk küçük ödemeler gelir, sonra "seviye atlamak" için senden para istenir.</li>
+      <li><b>Kurs satan "gurular":</b> "Ben ayda şu kadar kazanıyorum, kursumu al." Gerçek kazançları çoğu zaman kurs satışından gelir.</li>
+      <li><b>Fazla ödeme dolandırıcılığı:</b> Müşteri fazla para gönderir, "farkı iade et" der; sonra ilk ödeme iptal olur.</li>
+      <li><b>Kimlik hırsızlığı:</b> "İşe alım için" kimlik fotoğrafı, selfie, banka bilgisi isteyen ve resmî bir sitesi olmayan işverenler.</li>
+      <li><b>Para katırlığı:</b> "Hesabına para gelecek, çekip ileteceksin." Bu, dolandırıcılık parasını aklamaktır ve suçtur.</li>
+      <li><b>Saadet zinciri:</b> Kazancın yolu yeni üye getirmekse uzak dur. <a href="../saadet-zinciri/">Saadet zinciri rehberine bak.</a></li>
+    </ul>
+    <p class="kaynak">Sitedeki platform bağlantıları bilgi içindir; bu platformlarla bir bağımız yoktur ve kimseden komisyon almıyoruz. Her platformun güncel şartlarını kendi sitesinden oku. Son kontrol: ${kacis(SON_KONTROL)}.</p>
+  </section>
+</div>`
+  }));
+}
 
 // ---------------- Saadet zinciri rehberi ----------------
 yaz("saadet-zinciri/", sayfa({
@@ -428,7 +496,7 @@ fs.writeFileSync(path.join(CIKTI, "404.html"), sayfa({
 }).replace(/data-kok=""/, `data-kok="${SITE}"`).replace(/(href|src)="(?!https?:|#|data:|\/)([^"]*)"/g, (_, a, b) => `${a}="${SITE}${b}"`));
 
 // ---------------- Google için harita ----------------
-const adresler = ["", "fikirler/", "meslekler/", "tuzaklar/", "saadet-zinciri/", "hakkinda/", "gizlilik/"]
+const adresler = ["", "fikirler/", "internetten-para-kazanma/", "meslekler/", "tuzaklar/", "saadet-zinciri/", "hakkinda/", "gizlilik/"]
   .concat(FIKIRLER.map((f) => `fikir/${f.id}/`))
   .concat(MESLEKLER.map((m) => `meslek/${meslekYolu(m)}/`));
 fs.writeFileSync(path.join(CIKTI, "sitemap.xml"),

@@ -262,3 +262,9 @@ table.fark th, table.fark td { text-align: left; vertical-align: top; padding: 1
 table.fark thead th { background: var(--zemin); font-size: .85rem; }
 table.fark thead th:last-child, table.fark td:last-child { color: var(--tehlike); }
 table.fark tbody tr:last-child th, table.fark tbody tr:last-child td { border-bottom: 0; }
+
+/* ---------- İnternetten kazanma ---------- */
+.bilgi-serit { background: var(--ana-acik); border-color: transparent; }
+ol.sik, ul.sik { padding-left: 1.3em; margin: 8px 0 0; }
+ol.sik li, ul.sik li { margin-bottom: 8px; }
+.sayfa-dar-ic { max-width: 760px; }
