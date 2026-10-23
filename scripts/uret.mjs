@@ -14,10 +14,10 @@ const SITE_ADI = "İş Pusulası";
 // Tarayıcı dosyalarını (window.X = ...) Node içinde çalıştır.
 const window = {};
 const ortam = vm.createContext({ window, globalThis: window, console });
-for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "ortak.js"]) {
+for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js", "ortak.js"]) {
   vm.runInContext(fs.readFileSync(path.join(KOK, f), "utf8"), ortam, { filename: f });
 }
-const { MESLEKLER, ULKELER, FIKIRLER, SEVIYELER, DESTEKLER, TUZAKLAR, ODENEK_UYARISI, SON_KONTROL, Ortak } = window;
+const { MESLEKLER, ULKELER, FIKIRLER, SEVIYELER, DESTEKLER, TUZAKLAR, ODENEK_UYARISI, SON_KONTROL, SAADET, Ortak } = window;
 const { kacis, meslekYolu } = Ortak;
 const YER_ADLARI = { ev: "Evde", disari: "Dışarıda", internet: "İnternette" };
 
@@ -55,8 +55,10 @@ const IZINLI = ["indeed.com", "adzuna.co.uk", "adzuna.com", "adzuna.de", "adzuna
   "arbeidsplassen.nav.no", "arbetsformedlingen.se", "candidat.francetravail.fr", "europa.eu", "jobs.ams.at", "karriere.at",
   "jobs.ch", "jobs.cz", "jobindex.dk", "pracuj.pl", "vdab.be", "infojobs.net", "net-empregos.com", "bayt.com", "naukrigulf.com",
   "jobbank.gc.ca", "canada.ca", "seek.com.au", "seek.co.nz", "immi.homeaffairs.gov.au", "gov.uk", "make-it-in-germany.com",
-  "migration.gv.at", "kariyer.net", "google.com", "linkedin.com", "gov.tr", "flagcdn.com"];
-for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js"]) {
+  "migration.gv.at", "kariyer.net", "google.com", "linkedin.com", "gov.tr", "flagcdn.com",
+  // Saadet zinciri sayfasındaki vaka kaynakları ve resmî kurumlar
+  "bddk.org.tr", "ntv.com.tr", "bloomberght.com", "hurriyet.com.tr", "cnbc.com", "justice.gov", "fbi.gov"];
+for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js"]) {
   for (const [, alan] of fs.readFileSync(path.join(KOK, f), "utf8").matchAll(/https?:\/\/([^/"'{\s?]+)/g)) {
     if (!IZINLI.some((i) => alan === i || alan.endsWith("." + i))) hatalar.push(f + ": izinsiz site linki " + alan);
   }
@@ -124,6 +126,7 @@ ${icerik}
       <a href="${kok}fikirler/">İş Fikirleri</a>
       <a href="${kok}meslekler/">Bütün Meslekler</a>
       <a href="${kok}tuzaklar/">İş Tuzakları</a>
+      <a href="${kok}saadet-zinciri/">Saadet Zincirinden Korun</a>
       <a href="${kok}hakkinda/">Hakkında</a>
       <a href="${kok}gizlilik/">Gizlilik ve Sorumluluk</a>
     </nav>
@@ -208,6 +211,7 @@ yaz("", sayfa({
     <div class="fikirler">${ucuzlar.map((f) => fikirKart(f, "")).join("")}</div>
   </section>
   <a class="tuzak-serit blok" href="tuzaklar/"><b>⚠️ Önce para isteyen iş tuzaklarını öğren</b><span>Evde paketleme, IBAN kiralama, yurt dışı iş vaadiyle vize parası… Nasıl tanınır?</span></a>
+  <a class="tuzak-serit" href="saadet-zinciri/"><b>🛡️ Saadet zincirinden korun</b><span>Çiftlik Bank, Thodex, OneCoin… Gerçek vakalar, 10 tehlike işareti ve davet edilince sorulacak 5 soru.</span></a>
 </div>`
 }));
 
@@ -317,8 +321,59 @@ yaz("tuzaklar/", sayfa({
 <div class="sayfa dar"><article class="detay">
   <h1>Önce para isteyen iş tuzakları</h1>
   <div class="bilgi-kutu"><b>Altın kural:</b> Bir iş için önce SEN para ödüyorsan, o iş değildir. Gerçek işler sana para öder.</div>
+  <a class="tuzak-serit blok" href="../saadet-zinciri/"><b>🛡️ Saadet zinciri rehberi</b><span>Gerçek vakalar (Çiftlik Bank, OneCoin…), tanıma işaretleri ve davet edilince sorulacak sorular.</span></a>
   ${TUZAKLAR.map((t) => `<h2 class="tehlike-baslik">${kacis(t.baslik)}</h2><p>${kacis(t.aciklama)}</p>`).join("")}
   <div class="not-kutu blok"><b>Dolandırıldıysan</b><br>Vakit kaybetmeden bankanı ara ve hesabı durdurt; ardından savcılığa ya da en yakın karakola şikâyette bulun. Mesajları, dekontları ve ilanın ekran görüntülerini sakla.</div>
+</article></div>`
+}));
+
+// ---------------- Saadet zinciri rehberi ----------------
+yaz("saadet-zinciri/", sayfa({
+  yol: "saadet-zinciri/", aktif: "fikirler", baslik: "Saadet zinciri nedir, nasıl tanınır?",
+  aciklama: "Saadet zinciri, Ponzi ve sahte yatırım tuzakları: gerçek vakalar (Çiftlik Bank, Thodex, OneCoin, Madoff), 10 tehlike işareti, yasal doğrudan satıştan farkı ve kaptırınca ne yapmalı.",
+  icerik: `
+<div class="sayfa dar"><article class="detay">
+  <nav class="iz" aria-label="Konum"><a href="../tuzaklar/">İş Tuzakları</a> › <span>Saadet zinciri</span></nav>
+  <h1>Saadet zincirinden korun</h1>
+  <p class="giris">Saadet zinciri ve benzeri sistemler, kazancı gerçek bir işten değil yeni gelenlerin parasından sağlar. Bir süre sonra mutlaka çöker ve en son girenler, yani çoğunluk, parasını kaybeder. Bu sayfa günlük hayatta karşına çıktığında tanıyabilmen için hazırlandı.</p>
+  <div class="bilgi-kutu"><b>Kısaca:</b> Kazanç garanti ediliyorsa, getiri gerçek dışıysa ya da para kazanmanın yolu yeni insan getirmekse, uzak dur. Türkiye'de piramit satış sistemi kurmak, yaymak ve tavsiye etmek Tüketicinin Korunması Hakkında Kanun'la yasaktır; para toplanması dolandırıcılık suçuna da girer.</div>
+
+  <h2>Hangi kılıklarda karşına çıkar?</h2>
+  ${SAADET.turler.map((t) => `<h3>${kacis(t.ad)}</h3><p>${kacis(t.nasil)}</p>`).join("")}
+
+  <h2 class="tehlike-baslik">10 tehlike işareti</h2>
+  <p>Bunlardan biri bile varsa dur ve araştır:</p>
+  ${liste(SAADET.isaretler, "ol")}
+
+  <h2>Gerçek vakalar</h2>
+  <p class="kaynak">Burada yalnızca mahkeme kararı, resmî suçlama ya da resmî kurum açıklaması bulunan vakalar yer alır. Bir sistemin bu listede olmaması güvenli olduğu anlamına gelmez.</p>
+  ${SAADET.vakalar.map((v) => `<section class="kart vaka">
+    <h3>${kacis(v.ad)}</h3><p class="vaka-ust">${kacis(v.yer)} · ${kacis(v.yil)}</p>
+    <p><b>Nasıl işledi?</b> ${kacis(v.nasil)}</p>
+    <p><b>Ne oldu?</b> ${kacis(v.durum)}</p>
+    <p class="vaka-ders"><b>Ders:</b> ${kacis(v.ders)}</p>
+    <p class="kaynak">Kaynak: <a href="${kacis(v.kaynak.url)}" target="_blank" rel="noopener nofollow">${kacis(v.kaynak.ad)} ↗</a></p>
+  </section>`).join("")}
+
+  <h2>Yasal doğrudan satış mı, piramit mi?</h2>
+  <p>Kapı kapı ya da tanıdıklara ürün satmak (doğrudan satış) yasaldır ve Ticaret Bakanlığı'nın kurallarına tabidir. Piramit ise yasaktır. Farkı şöyle anlarsın:</p>
+  <div class="tablo-kutu"><table class="fark"><thead><tr><th></th><th>Yasal doğrudan satış</th><th>Piramit / saadet zinciri</th></tr></thead><tbody>
+  ${SAADET.fark.map((r) => `<tr><th>${kacis(r[0])}</th><td>${kacis(r[1])}</td><td>${kacis(r[2])}</td></tr>`).join("")}
+  </tbody></table></div>
+
+  <h2>Biri seni davet ederse, şu 5 soruyu sor</h2>
+  ${liste(SAADET.sorular, "ol")}
+  <p>Net ve belgeli cevap alamıyorsan, ya da sorduğun için ayıplanıyorsan, bu da bir cevaptır.</p>
+
+  <h2>Güncel isimleri nereden kontrol edersin?</h2>
+  <p>Yeni sistemler sürekli ad değiştirerek ortaya çıkar. Bir ismi duyduğunda şu resmî kaynaklarda ara:</p>
+  ${SAADET.kontrol.map((k) => `<div class="destek"><b><a href="${kacis(k.url)}" target="_blank" rel="noopener">${kacis(k.ad)} ↗</a></b><span>${kacis(k.aciklama)}</span></div>`).join("")}
+  <p>İnternette "<i>isim + şikayet</i>", "<i>isim + SPK</i>", "<i>isim + dolandırıcılık</i>" diye aramak da çoğu zaman yeterli fikir verir.</p>
+
+  <h2 class="tehlike-baslik">Kaptırdıysan ne yapmalısın?</h2>
+  ${liste(SAADET.kaptirdiysan, "ol")}
+
+  <p class="kaynak">Son kontrol: ${kacis(SAADET.sonKontrol)}. Davaların durumu değişebilir; burada yazan aşamalar (ilk derece, istinaf gibi) kontrol tarihindeki bilgidir. Bu sayfa hukuki tavsiye değildir.</p>
 </article></div>`
 }));
 
@@ -373,7 +428,7 @@ fs.writeFileSync(path.join(CIKTI, "404.html"), sayfa({
 }).replace(/data-kok=""/, `data-kok="${SITE}"`).replace(/(href|src)="(?!https?:|#|data:|\/)([^"]*)"/g, (_, a, b) => `${a}="${SITE}${b}"`));
 
 // ---------------- Google için harita ----------------
-const adresler = ["", "fikirler/", "meslekler/", "tuzaklar/", "hakkinda/", "gizlilik/"]
+const adresler = ["", "fikirler/", "meslekler/", "tuzaklar/", "saadet-zinciri/", "hakkinda/", "gizlilik/"]
   .concat(FIKIRLER.map((f) => `fikir/${f.id}/`))
   .concat(MESLEKLER.map((m) => `meslek/${meslekYolu(m)}/`));
 fs.writeFileSync(path.join(CIKTI, "sitemap.xml"),
