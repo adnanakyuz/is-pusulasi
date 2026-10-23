@@ -41,6 +41,26 @@ for (const m of MESLEKLER) {
   yollar.add(y);
   if (!m.ad?.en?.length) hatalar.push(y + ": İngilizce ad eksik");
 }
+// Kesin kural 1: Bir fikrin tanıtım kısmında (başlık, özet, adımlar, kazanç...) şüpheli sistemler geçemez.
+// Tuzaklar ve "batanlar" bölümünde uyarı olarak geçebilir.
+const YASAK = /kripto|forex|bahis|kumar|iddaa|binary|network marketing|mlm|üye getir|saadet zinciri|garantili|pasif gelir|kesin kazanç|sinyal grubu|iban kirala|hesap kirala|önce ödeme|kayıt ücreti/i;
+for (const f of FIKIRLER) {
+  const tanitim = [f.baslik, f.ozet, f.neIs, f.kimeUygun, f.sermaye, f.ilkPara, f.kazanc, ...f.adimlar].join(" ");
+  const bulunan = tanitim.match(YASAK);
+  if (bulunan) hatalar.push(f.id + ": yasaklı ifade '" + bulunan[0] + "' (bu tür sistemler önerilemez)");
+}
+// Kesin kural 2: Veride yalnızca bilinen, güvenilir sitelere link olabilir. Yeni bir site eklemek için
+// bu listeyi bir insanın elle güncellemesi gerekir; Tara ve Denetçi bu dosyayı değiştiremez.
+const IZINLI = ["indeed.com", "adzuna.co.uk", "adzuna.com", "adzuna.de", "adzuna.it", "adzuna.nl", "arbeitsagentur.de",
+  "arbeidsplassen.nav.no", "arbetsformedlingen.se", "candidat.francetravail.fr", "europa.eu", "jobs.ams.at", "karriere.at",
+  "jobs.ch", "jobs.cz", "jobindex.dk", "pracuj.pl", "vdab.be", "infojobs.net", "net-empregos.com", "bayt.com", "naukrigulf.com",
+  "jobbank.gc.ca", "canada.ca", "seek.com.au", "seek.co.nz", "immi.homeaffairs.gov.au", "gov.uk", "make-it-in-germany.com",
+  "migration.gv.at", "kariyer.net", "google.com", "linkedin.com", "gov.tr", "flagcdn.com"];
+for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js"]) {
+  for (const [, alan] of fs.readFileSync(path.join(KOK, f), "utf8").matchAll(/https?:\/\/([^/"'{\s?]+)/g)) {
+    if (!IZINLI.some((i) => alan === i || alan.endsWith("." + i))) hatalar.push(f + ": izinsiz site linki " + alan);
+  }
+}
 if (hatalar.length) { console.error("Veri hatası:\n- " + hatalar.join("\n- ")); process.exit(1); }
 
 // ---------------- Ortak sayfa iskeleti ----------------
@@ -318,7 +338,7 @@ yaz("hakkinda/", sayfa({
     <li><b>Ücretsiz:</b> Üyelik yok, ücret yok, reklam yok.</li>
     <li><b>Dürüst:</b> Kazanç garantisi vermiyoruz; her fikrin tuzaklarını ve batma sebeplerini de yazıyoruz.</li>
     <li><b>Güvenli:</b> Önce para isteyen, saadet zinciri gibi işleyen ya da yasal olmayan hiçbir sistemi önermiyoruz.</li>
-    <li><b>Kontrollü:</b> Yeni eklenen her bilgi yayına girmeden önce elle kontrol edilir.</li>
+    <li><b>Denetimli:</b> Her hafta yeni fikir ve meslekler eklenir. Her ekleme yayına girmeden önce ayrı bir denetimden ve otomatik kural kontrolünden geçer.</li>
   </ul>
   <h2>İlanlar nereden geliyor?</h2>
   <p>İş Pusulası ilan yayınlamaz ve kimseyi işe almaz. Düğmeler seni ülkelerin devlet iş portallarına ve bilinen iş ilanı sitelerine götürür. Başvurduğun işvereni ve aracı firmayı her zaman kendin doğrula.</p>

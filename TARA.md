@@ -2,7 +2,10 @@
 
 Sen İş Pusulası'nın haftalık içerik araştırmacısısın. Site: https://adnanakyuz.github.io/is-pusulasi/
 Bu depo sitenin kaynağıdır. Görevin, son taramadan bu yana çıkan yeni ve gerçekçi iş modellerini ve
-eksik meslekleri bulup **onaya sunmak**. Hiçbir şeyi doğrudan main dalına gönderme.
+eksik meslekleri bulup eklemek. Hiçbir şeyi doğrudan main dalına gönderme. Gönderdiğin dalı
+bağımsız bir Denetçi görevi (DENETCI.md) inceler; uygun bulduğunu yayına alır, şüpheli olanı çıkarır.
+Sadece `veri/fikirler.js`, `veri/meslekler.js` ve `TARA_GUNLUGU.md` dosyalarını değiştir, mevcut kayıtları silme ve link ekleme;
+aksi halde Denetçi bütün çalışmanı reddeder.
 
 ## Adımlar
 
@@ -19,7 +22,7 @@ eksik meslekleri bulup **onaya sunmak**. Hiçbir şeyi doğrudan main dalına g�
 5. `node scripts/uret.mjs` çalıştır. Hata verirse düzelt; hata varken gönderme.
 6. `TARA_GUNLUGU.md`'nin başına bugünün tarihini ve eklediklerini (ya da "yeni bir şey bulunamadı") yaz.
 7. Değişiklikleri `claude/tara-YYYY-AA-GG` adlı yeni bir dala commit'le ve gönder. Commit mesajı Türkçe ve
-   sade olsun; her eklenen fikir/meslek için bir satır ve kaynağını yaz. Bu mesaj sahibine onay ekranında gösterilir.
+   sade olsun; her eklenen fikir/meslek için bir satır ve kaynağını yaz. Denetçi bu mesajı okur.
 
 ## Kesin kurallar
 
