@@ -14,10 +14,11 @@ const SITE_ADI = "İş Pusulası";
 // Tarayıcı dosyalarını (window.X = ...) Node içinde çalıştır.
 const window = {};
 const ortam = vm.createContext({ window, globalThis: window, console });
-for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js", "ortak.js"]) {
+const REHBER_EKLERI = fs.readdirSync(path.join(KOK, "veri")).filter((f) => /^rehberler-.+\.js$/.test(f)).sort().map((f) => "veri/" + f);
+for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js", "veri/rehberler.js", ...REHBER_EKLERI, "ortak.js"]) {
   vm.runInContext(fs.readFileSync(path.join(KOK, f), "utf8"), ortam, { filename: f });
 }
-const { MESLEKLER, ULKELER, FIKIRLER, SEVIYELER, DESTEKLER, TUZAKLAR, ODENEK_UYARISI, SON_KONTROL, SAADET, Ortak } = window;
+const { MESLEKLER, ULKELER, FIKIRLER, SEVIYELER, DESTEKLER, TUZAKLAR, ODENEK_UYARISI, SON_KONTROL, SAADET, REHBERLER, Ortak } = window;
 const { kacis, meslekYolu } = Ortak;
 const YER_ADLARI = { ev: "Evde", disari: "Dışarıda", internet: "İnternette" };
 
@@ -62,11 +63,12 @@ const IZINLI = ["indeed.com", "adzuna.co.uk", "adzuna.com", "adzuna.de", "adzuna
   "bionluk.com", "armut.com", "upwork.com", "fiverr.com", "outlier.ai", "dataannotation.tech", "telusdigital.com",
   "rentahuman.ai", "preply.com", "italki.com", "usertesting.com", "shutterstock.com", "stock.adobe.com", "etsy.com",
   "gumroad.com", "youtube.com"];
-for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js"]) {
+for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js", "veri/rehberler.js", ...REHBER_EKLERI]) {
   for (const [, alan] of fs.readFileSync(path.join(KOK, f), "utf8").matchAll(/https?:\/\/([^/"'{\s?]+)/g)) {
     if (!IZINLI.some((i) => alan === i || alan.endsWith("." + i))) hatalar.push(f + ": izinsiz site linki " + alan);
   }
 }
+for (const id of Object.keys(REHBERLER)) if (!FIKIRLER.some((f) => f.id === id)) hatalar.push("Rehber var ama fikir yok: " + id);
 if (hatalar.length) { console.error("Veri hatası:\n- " + hatalar.join("\n- ")); process.exit(1); }
 
 // ---------------- Ortak sayfa iskeleti ----------------
@@ -166,12 +168,28 @@ const liste = (dizi, tip) => `<${tip}>${dizi.map((d) => `<li>${kacis(d)}</li>`).
 const etiketler = (f, seviyeDe) =>
   `<div class="etiketler">${seviyeDe ? `<span class="etiket">${kacis(SEVIYELER[f.seviye].ad)}</span>` : ""}` +
   (f.tur === "yukselen" ? '<span class="etiket yeni">Yeni yükselen</span>' : '<span class="etiket">Denenmiş</span>') +
+  (REHBERLER[f.id] ? '<span class="etiket rehber">📘 Detaylı rehber</span>' : "") +
   f.yer.map((y) => `<span class="etiket">${YER_ADLARI[y]}</span>`).join("") + "</div>";
 const fikirKart = (f, kok) =>
   `<a class="kart fikir-kart" href="${kok}fikir/${f.id}/" data-seviye="${f.seviye}" data-yer="${f.yer.join(" ")}" data-tur="${f.tur}">` +
   `<h3>${kacis(f.baslik)}</h3><p>${kacis(f.ozet)}</p>${etiketler(f)}<span class="kart-alt">Sermaye: ${kacis(SEVIYELER[f.seviye].aralik)}</span></a>`;
 
 // Klasörün kendisini değil içini temizle (açık bir önizleme sunucusu klasörü kilitlemiş olabilir).
+// Detaylı uygulama rehberi (veri/rehberler.js)
+function rehberHTML(id) {
+  const r = REHBERLER[id];
+  if (!r) return "";
+  let h = `<section class="rehber" id="rehber"><h2 class="rehber-baslik">📘 Uygulama rehberi: işi nasıl yaparsın?</h2>`;
+  if (r.araclar?.length) h += `<h3>Gerekenler</h3><ul class="arac-liste">${r.araclar.map(([a, b]) => `<li><b>${kacis(a)}</b><span>${kacis(b)}</span></li>`).join("")}</ul>`;
+  if (r.yapilis?.length) h += `<h3>İşin yapılışı, adım adım</h3>${r.yapilis.map((y) => `<div class="yapilis"><h4>${kacis(y.baslik)}</h4>${liste(y.adimlar, "ol")}</div>`).join("")}`;
+  if (r.fiyat) h += `<h3>Fiyatını nasıl hesaplarsın?</h3><p>${kacis(r.fiyat.aciklama)}</p><div class="tablo-kutu"><table class="fark hesap"><tbody>${r.fiyat.kalemler.map(([k, v]) => `<tr><th>${kacis(k)}</th><td>${kacis(v)}</td></tr>`).join("")}</tbody></table></div><p>${kacis(r.fiyat.sonuc)}</p>`;
+  if (r.ilkHafta?.length) h += `<h3>İlk hafta planı</h3>${liste(r.ilkHafta, "ul")}`;
+  if (r.ornekMesaj) h += `<h3>Hazır ilan / teklif mesajı</h3><p class="kaynak">Köşeli parantezleri kendi bilgilerinle değiştirip kullanabilirsin.</p><blockquote class="ornek-mesaj">${kacis(r.ornekMesaj)}</blockquote>`;
+  if (r.ipuclari?.length) h += `<h3>Ustalardan püf noktaları</h3>${liste(r.ipuclari, "ul")}`;
+  if (r.ogrenme?.length) h += `<h3>Ücretsiz nereden öğrenirsin?</h3>${liste(r.ogrenme, "ul")}`;
+  return h + "</section>";
+}
+
 fs.mkdirSync(CIKTI, { recursive: true });
 for (const f of fs.readdirSync(CIKTI)) fs.rmSync(path.join(CIKTI, f), { recursive: true, force: true });
 
@@ -270,6 +288,7 @@ for (const f of FIKIRLER) {
     </div>
     <h2>Bu iş nedir?</h2><p>${kacis(f.neIs)}</p>
     <h2>İlk müşteriye kadar adım adım</h2>${liste(f.adimlar, "ol")}
+    ${rehberHTML(f.id)}
     ${f.platformlar?.length ? `<h2>Nereden başlanır?</h2><div class="site-dugmeler">${f.platformlar.map((pl) => `<a href="${kacis(pl.url)}" target="_blank" rel="noopener nofollow">${kacis(pl.ad)} ↗</a>`).join("")}</div><p class="kaynak">Bu platformlarla bir bağımız yok. Üye olmadan önce ücretlerini, ödeme yöntemlerini ve Türkiye'den kabul edip etmediklerini kendi sitelerinden kontrol et.</p>` : ""}
     <h2>Yasal kısım</h2><p>${kacis(f.yasal)}</p>
     <h2>Gerçekçi kazanç beklentisi</h2><p>${kacis(f.kazanc)}</p>

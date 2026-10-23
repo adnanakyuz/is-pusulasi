@@ -268,3 +268,16 @@ table.fark tbody tr:last-child th, table.fark tbody tr:last-child td { border-bo
 ol.sik, ul.sik { padding-left: 1.3em; margin: 8px 0 0; }
 ol.sik li, ul.sik li { margin-bottom: 8px; }
 .sayfa-dar-ic { max-width: 760px; }
+
+/* ---------- Uygulama rehberi ---------- */
+.etiket.rehber { background: var(--vurgu-acik); color: var(--vurgu); }
+.rehber { margin-top: 30px; background: var(--kart); border: 1px solid var(--cizgi); border-left: 4px solid var(--vurgu); border-radius: var(--yaricap); padding: 6px 20px 18px; }
+.rehber .rehber-baslik { margin-top: 18px; }
+.rehber h3 { margin-top: 24px; }
+.rehber h4 { margin: 16px 0 6px; font-size: 1rem; }
+.arac-liste { list-style: none; padding: 0 !important; display: grid; gap: 8px; }
+.arac-liste li { border: 1px solid var(--cizgi); border-radius: 10px; padding: 8px 12px; margin: 0 !important; }
+.arac-liste b { display: block; }
+.arac-liste span { color: var(--soluk); font-size: .93rem; }
+table.hesap td { color: var(--yazi) !important; }
+.ornek-mesaj { margin: 8px 0 0; padding: 14px 16px; background: var(--zemin); border-radius: 10px; border: 1px dashed var(--cizgi); font-size: .97rem; }

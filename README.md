@@ -9,6 +9,7 @@ Site: https://adnanakyuz.github.io/is-pusulasi/
 - `veri/meslekler.js`: meslek sözlüğü (Türkçe ad → 8 dildeki adları)
 - `veri/ulkeler.js`: ülkeler ve iş siteleri
 - `veri/fikirler.js`: iş fikirleri, destekler, tuzaklar
+- `veri/rehberler*.js`: her fikrin detaylı uygulama rehberi (gerekenler, yapılış, fiyat hesabı, ilk hafta, örnek mesaj)
 - `scripts/uret.mjs`: bu verilerden her fikir ve meslek için ayrı sayfa üretir (`_site/`)
 - `.github/workflows/yayinla.yml`: main dalına her değişiklikte siteyi üretir ve yayınlar
 - `TARA.md`: haftalık Tara görevinin talimatı (Pazartesi 09:00). Yeni bulunanları `claude/tara-...` dalına yazar.
