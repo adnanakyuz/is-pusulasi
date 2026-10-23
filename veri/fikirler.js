@@ -1006,5 +1006,28 @@ window.FIKIRLER = [
       "Ekonomik daralmada ilk vazgeçilen hizmetlerden olması."
     ],
     destekler: ["kosgeb", "iskurKurs", "iskurGirisim"]
+  },
+  {
+    id: "yasli-refakat", baslik: "Yaşlıya günlük refakat ve alışveriş yardımı", seviye: 0, yer: ["disari"], tur: "yukselen",
+    ozet: "Yalnız yaşayan yaşlılara hastane, market, eczane ve gezi için tıbbi olmayan günlük yardım vermek.",
+    neIs: "Yaşlı nüfus artıyor ve çocukları başka şehirde yaşayan çok kişi var. Hastane randevusuna eşlik etmek, alışveriş yapmak, ilaç ve fatura işlerini takip etmek, birlikte yürüyüşe çıkmak gibi tıbbi olmayan destek verirsin. İlaç verme, hasta bakımı ve tıbbi uygulama bu işin dışındadır.",
+    kimeUygun: "Sabırlı, güvenilir, insanlarla iyi anlaşan; ev dışında çalışabilen herkes. Daha önce yakınına bakmış olanlar iyi başlar.",
+    sermaye: "0 TL. Telefon ve toplu taşıma kartı yeterli.",
+    ilkPara: "1-4 hafta. İlk müşteriler genelde tanıdık ve mahalle çevresinden gelir.",
+    adimlar: [
+      "Çevrendeki apartman, cami çevresi ve mahalle gruplarında ne tür yardıma ihtiyaç olduğunu sor.",
+      "Hizmet kapsamını yazılı hale getir: neler yaparsın, neler yapmazsın (tıbbi uygulama yok).",
+      "Yaşlının ailesiyle tanış; çocuklara düzenli kısa bilgi mesajı atmak güveni artırır.",
+      "Sabıka kaydı belgeni (e-Devlet) ve varsa referans kişilerini hazır tut.",
+      "Saat başı ücretini ve iptal kuralını baştan söyle."
+    ],
+    yasal: "Tıbbi bakım ve hemşirelik hizmeti ruhsatlı kurumların işidir; sen yalnızca tıbbi olmayan destek ver. Düzenli ücretli iş yapacaksan vergi durumunu vergi dairesine ve İŞKUR'a sor. Yaşlının parasını ya da banka kartını kendi başına kullanma.",
+    kazanc: "Asgari ücretin saatlik karşılığına yakın ya da biraz üstü bir aralık olabilir; şehre, saate ve emeğe göre değişir.",
+    tuzaklar: [
+      "Yaşlının banka kartını, şifresini ya da ev anahtarını emanet almak; olası bir anlaşmazlıkta kendini savunman zorlaşır.",
+      "Tıbbi bir şeye karışmak (ilaç dozu, iğne) ve sorumluluk altında kalmak.",
+      "Tek bir aileye tamamen bağımlı olmak; aile gidince gelir biter."
+    ],
+    destekler: ["iskurKurs", "belediye"]
   }
 ];
