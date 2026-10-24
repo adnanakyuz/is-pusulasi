@@ -281,3 +281,14 @@ ol.sik li, ul.sik li { margin-bottom: 8px; }
 .arac-liste span { color: var(--soluk); font-size: .93rem; }
 table.hesap td { color: var(--yazi) !important; }
 .ornek-mesaj { margin: 8px 0 0; padding: 14px 16px; background: var(--zemin); border-radius: 10px; border: 1px dashed var(--cizgi); font-size: .97rem; }
+
+/* ---------- Türkiye'de iş ara ---------- */
+.tr-bag { margin: 12px 0 0; font-size: .95rem; }
+.tr-bag a { color: inherit; font-weight: 600; }
+.tr-form { display: grid; grid-template-columns: 1.4fr 1fr 1fr auto; gap: 10px; align-items: end; max-width: 900px; }
+.tr-form label { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; font-weight: 600; color: var(--soluk); }
+.tr-form small { font-weight: 400; }
+.tr-form input, .tr-form select { font: inherit; font-size: 1rem; padding: 12px 14px; border-radius: 12px; border: 2px solid var(--cizgi); background: var(--kart); color: var(--yazi); }
+.tr-form input:focus, .tr-form select:focus { outline: none; border-color: var(--ana); }
+.tr-form button { font: inherit; font-weight: 700; padding: 13px 24px; border-radius: 12px; border: 0; background: var(--vurgu); color: #fff; cursor: pointer; }
+@media (max-width: 720px) { .tr-form { grid-template-columns: 1fr; } }

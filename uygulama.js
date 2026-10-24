@@ -77,6 +77,46 @@
   if ($(".ana")) { window.addEventListener("hashchange", hashOku); hashOku(); }
 
   // ---------------- İŞ FİKRİ SÜZME ----------------
+  // ---------------- TÜRKİYE'DE İL / İLÇEYE GÖRE ARAMA ----------------
+  var trForm = $("#tr-form");
+  if (trForm) {
+    var slugla = function (s) { return O.sade(s).replace(/ /g, "-"); };
+    var trAra = function () {
+      var meslek = $("#tr-meslek").value.trim();
+      var il = $("#tr-il").value;
+      var ilce = $("#tr-ilce").value.trim();
+      if (!il) { $("#tr-sonuc").innerHTML = '<p class="not-kutu">Önce ilini seç.</p>'; return; }
+      var q = meslek;
+      var yer = ilce ? ilce + ", " + il : il;
+      var doldur = function (sablon) {
+        return sablon.replace("{q}", encodeURIComponent(q)).replace("{yer}", encodeURIComponent(yer))
+          .replace("{il}", encodeURIComponent(il)).replace("{ilSlug}", slugla(il)).replace("{ilceSlug}", slugla(ilce));
+      };
+      var html = '<div class="kart blok"><h2 class="bolum-baslik">' + O.kacis(q ? q + " · " : "") + O.kacis(yer) + ' iş ilanları</h2><div class="site-dugmeler">';
+      window.TR_SITELER.forEach(function (s) {
+        var url = doldur(ilce && s.ilceAdres ? s.ilceAdres : s.url);
+        html += '<a href="' + O.kacis(url) + '" target="_blank" rel="noopener nofollow">' + O.kacis(s.ad) + ' <span aria-hidden="true">↗</span></a>';
+      });
+      html += "</div>";
+      var notlar = window.TR_SITELER.filter(function (s) { return s.kelimeYok; }).map(function (s) { return s.ad; });
+      if (q && notlar.length) html += '<p class="ulke-not">' + O.kacis(notlar.join(", ")) + " meslek aramasını adresten almıyor; açılan sayfada mesleği bir kez daha yazman gerekebilir.</p>";
+      if (ilce) html += '<p class="ulke-not">İlçede az ilan çıkarsa ilçeyi silip bütün ilde ara; ilçe ilanları çoğu zaman il geneline de yazılır.</p>';
+      html += "</div>";
+      $("#tr-sonuc").innerHTML = html;
+      // Arama adres çubuğuna yazılır; sayfa paylaşılınca ya da yer imine eklenince aynı arama açılır.
+      var p = new URLSearchParams();
+      if (meslek) p.set("meslek", meslek);
+      p.set("il", il);
+      if (ilce) p.set("ilce", ilce);
+      try { history.replaceState(null, "", "?" + p.toString()); } catch (e) {}
+    };
+    trForm.addEventListener("submit", function (e) { e.preventDefault(); trAra(); });
+    var ilk = new URLSearchParams(location.search);
+    if (ilk.get("meslek")) $("#tr-meslek").value = ilk.get("meslek");
+    if (ilk.get("ilce")) $("#tr-ilce").value = ilk.get("ilce");
+    if (ilk.get("il") && window.ILLER.indexOf(ilk.get("il")) >= 0) { $("#tr-il").value = ilk.get("il"); trAra(); }
+  }
+
   var filtreler = $("#filtreler");
   if (filtreler) {
     var secili = { seviye: "hepsi", yer: "hepsi", tur: "hepsi" };

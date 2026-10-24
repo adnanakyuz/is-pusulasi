@@ -18,7 +18,7 @@ const REHBER_EKLERI = fs.readdirSync(path.join(KOK, "veri")).filter((f) => /^reh
 for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js", "veri/rehberler.js", ...REHBER_EKLERI, "ortak.js"]) {
   vm.runInContext(fs.readFileSync(path.join(KOK, f), "utf8"), ortam, { filename: f });
 }
-const { MESLEKLER, ULKELER, FIKIRLER, SEVIYELER, DESTEKLER, TUZAKLAR, ODENEK_UYARISI, SON_KONTROL, SAADET, REHBERLER, Ortak } = window;
+const { ILLER, MESLEKLER, ULKELER, FIKIRLER, SEVIYELER, DESTEKLER, TUZAKLAR, ODENEK_UYARISI, SON_KONTROL, SAADET, REHBERLER, Ortak } = window;
 const { kacis, meslekYolu } = Ortak;
 const YER_ADLARI = { ev: "Evde", disari: "Dışarıda", internet: "İnternette" };
 
@@ -62,7 +62,9 @@ const IZINLI = ["indeed.com", "adzuna.co.uk", "adzuna.com", "adzuna.de", "adzuna
   // İnternetten kazanma platformları (yalnızca elle eklenir)
   "bionluk.com", "armut.com", "upwork.com", "fiverr.com", "outlier.ai", "dataannotation.tech", "telusdigital.com",
   "rentahuman.ai", "preply.com", "italki.com", "usertesting.com", "shutterstock.com", "stock.adobe.com", "etsy.com",
-  "gumroad.com", "youtube.com"];
+  "gumroad.com", "youtube.com",
+  // Türkiye il/ilçe iş ilanı siteleri
+  "eleman.net", "yenibiris.com"];
 for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "veri/saadet.js", "veri/rehberler.js", ...REHBER_EKLERI]) {
   for (const [, alan] of fs.readFileSync(path.join(KOK, f), "utf8").matchAll(/https?:\/\/([^/"'{\s?]+)/g)) {
     if (!IZINLI.some((i) => alan === i || alan.endsWith("." + i))) hatalar.push(f + ": izinsiz site linki " + alan);
@@ -117,7 +119,8 @@ ${ekBas}</head>
       <img src="${kok}ikonlar/ikon.svg" alt="" width="36" height="36"><span>İş <b>Pusulası</b></span>
     </a>
     <nav class="menu" aria-label="Ana menü">
-      ${nav("İş Ara", "", "ara")}
+      ${nav("Yurt Dışı", "", "ara")}
+      ${nav("Türkiye", "turkiyede-is-ara/", "turkiye")}
       ${nav("İş Fikirleri", "fikirler/", "fikirler")}
       ${nav("İnternetten Kazan", "internetten-para-kazanma/", "internet")}
       ${nav("Meslekler", "meslekler/", "meslekler")}
@@ -135,7 +138,8 @@ ${icerik}
       <p>Mesleğini dünyada ara, sermayene uygun gerçekçi iş fikirlerini öğren. Ücretsiz, üyelik yok, reklam yok.</p>
     </div>
     <nav aria-label="Alt menü">
-      <a href="${kok}">İş Ara</a>
+      <a href="${kok}">Yurt Dışında İş Ara</a>
+      <a href="${kok}turkiyede-is-ara/">Türkiye'de İş Ara</a>
       <a href="${kok}fikirler/">İş Fikirleri</a>
       <a href="${kok}internetten-para-kazanma/">İnternetten Kazan</a>
       <a href="${kok}meslekler/">Bütün Meslekler</a>
@@ -217,6 +221,7 @@ yaz("", sayfa({
       <datalist id="meslek-listesi">${MESLEKLER.map((m) => `<option value="${kacis(m.tr[0])}">`).join("")}</datalist>
       <button type="submit">Ara</button>
     </form>
+    <p class="tr-bag"><a href="turkiyede-is-ara/">🇹🇷 Türkiye'de il ve ilçene göre mi arıyorsun? Buradan ara →</a></p>
     <div class="ornekler"><span>Sık arananlar:</span>${populer.map((m) => `<a class="cip" href="meslek/${meslekYolu(m)}/">${kacis(m.tr[0])}</a>`).join("")}</div>
     <ul class="rakamlar">
       <li><b>${MESLEKLER.length}</b> meslek</li>
@@ -243,6 +248,35 @@ yaz("", sayfa({
   <a class="tuzak-serit bilgi-serit blok" href="internetten-para-kazanma/"><b>💻 İnternetten para kazanma yolları</b><span>Evden yapılabilen gerçekçi işler: freelance, yapay zekâ eğitimi, online dil öğretmenliği ve daha fazlası.</span></a>
   <a class="tuzak-serit" href="tuzaklar/"><b>⚠️ Önce para isteyen iş tuzaklarını öğren</b><span>Evde paketleme, IBAN kiralama, yurt dışı iş vaadiyle vize parası… Nasıl tanınır?</span></a>
   <a class="tuzak-serit" href="saadet-zinciri/"><b>🛡️ Saadet zincirinden korun</b><span>Çiftlik Bank, Thodex, OneCoin… Gerçek vakalar, 10 tehlike işareti ve davet edilince sorulacak 5 soru.</span></a>
+</div>`
+}));
+
+// ---------------- Türkiye'de il ve ilçeye göre iş arama ----------------
+yaz("turkiyede-is-ara/", sayfa({
+  yol: "turkiyede-is-ara/", aktif: "turkiye", baslik: "Türkiye'de il ve ilçeye göre iş ilanları",
+  aciklama: "Mesleğini, ilini ve ilçeni seç; Kariyer.net, Eleman.net, Indeed, Google ve İŞKUR'daki ilanları tek yerden ara. 81 il ve bütün ilçeler.",
+  icerik: `
+<div class="sayfa">
+  <section class="sayfa-bas">
+    <h1>Türkiye'de iş ara</h1>
+    <p class="giris">Mesleğini, ilini ve istersen ilçeni yaz; Türkiye'nin iş ilanı sitelerinde senin için hazır aramaları açalım.</p>
+    <form id="tr-form" class="tr-form" autocomplete="off">
+      <label><span>Meslek <small>(boş bırakırsan bütün ilanlar)</small></span>
+        <input id="tr-meslek" type="search" placeholder="Örnek: operatör, aşçı, şoför" list="tr-meslek-listesi"></label>
+      <datalist id="tr-meslek-listesi">${MESLEKLER.map((m) => `<option value="${kacis(m.tr[0])}">`).join("")}</datalist>
+      <label><span>İl</span>
+        <select id="tr-il" required><option value="">İl seç</option>${ILLER.map((il) => `<option>${kacis(il)}</option>`).join("")}</select></label>
+      <label><span>İlçe <small>(isteğe bağlı)</small></span>
+        <input id="tr-ilce" type="text" placeholder="Örnek: Midyat"></label>
+      <button type="submit">Ara</button>
+    </form>
+  </section>
+  <div id="tr-sonuc" aria-live="polite"></div>
+  <div class="not-kutu blok"><b>⚠️ İş ilanlarında dikkat</b><ul>
+    <li>İşe başlamadan önce senden eğitim, kıyafet, kayıt ya da "dosya" parası isteyen ilan dolandırıcılıktır.</li>
+    <li>Kimlik fotokopini ve banka bilgilerini ancak işe girişte, işyerinde ver.</li>
+    <li>Sigortasız çalıştırılmak istersen e-Devlet'ten SGK hizmet dökümünü kontrol et; sigortasız çalışma senin aleyhinedir.</li>
+    <li>Daha fazlası için <a href="../tuzaklar/">iş tuzakları sayfasına</a> bak.</li></ul></div>
 </div>`
 }));
 
@@ -521,7 +555,7 @@ fs.writeFileSync(path.join(CIKTI, "404.html"), sayfa({
 }).replace(/data-kok=""/, `data-kok="${SITE}"`).replace(/(href|src)="(?!https?:|#|data:|\/)([^"]*)"/g, (_, a, b) => `${a}="${SITE}${b}"`));
 
 // ---------------- Google için harita ----------------
-const adresler = ["", "fikirler/", "internetten-para-kazanma/", "meslekler/", "tuzaklar/", "saadet-zinciri/", "hakkinda/", "gizlilik/"]
+const adresler = ["", "turkiyede-is-ara/", "fikirler/", "internetten-para-kazanma/", "meslekler/", "tuzaklar/", "saadet-zinciri/", "hakkinda/", "gizlilik/"]
   .concat(FIKIRLER.map((f) => `fikir/${f.id}/`))
   .concat(MESLEKLER.map((m) => `meslek/${meslekYolu(m)}/`));
 fs.writeFileSync(path.join(CIKTI, "sitemap.xml"),

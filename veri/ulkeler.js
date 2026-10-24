@@ -264,3 +264,24 @@ window.GENEL_SITELER = [
   { ad: "Google İş İlanları", url: "https://www.google.com/search?q={q}+jobs+{ulke}&ibp=htl;jobs" },
   { ad: "LinkedIn", url: "https://www.linkedin.com/jobs/search/?keywords={q}&location={ulke}" }
 ];
+
+// ---------------- Türkiye'de il ve ilçeye göre iş arama (turkiyede-is-ara/) ----------------
+window.ILLER = ["Adana", "Adıyaman", "Afyonkarahisar", "Ağrı", "Aksaray", "Amasya", "Ankara", "Antalya", "Ardahan", "Artvin",
+  "Aydın", "Balıkesir", "Bartın", "Batman", "Bayburt", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale",
+  "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Düzce", "Edirne", "Elazığ", "Erzincan", "Erzurum", "Eskişehir", "Gaziantep",
+  "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Iğdır", "Isparta", "İstanbul", "İzmir", "Kahramanmaraş", "Karabük", "Karaman",
+  "Kars", "Kastamonu", "Kayseri", "Kilis", "Kırıkkale", "Kırklareli", "Kırşehir", "Kocaeli", "Konya", "Kütahya", "Malatya",
+  "Manisa", "Mardin", "Mersin", "Muğla", "Muş", "Nevşehir", "Niğde", "Ordu", "Osmaniye", "Rize", "Sakarya", "Samsun", "Şanlıurfa",
+  "Siirt", "Sinop", "Şırnak", "Sivas", "Tekirdağ", "Tokat", "Trabzon", "Tunceli", "Uşak", "Van", "Yalova", "Yozgat", "Zonguldak"];
+
+// {q} meslek, {yer} ilçe varsa "ilçe, il" yoksa il, {il}/{ilce} adlar, {ilSlug}/{ilceSlug} adres biçimi (mardin, midyat).
+// ilceAdres: ilçe yazılmışsa kullanılacak adres. kelimeYok: site meslek aramasını adreste desteklemiyor.
+window.TR_SITELER = [
+  { ad: "Kariyer.net", url: "https://www.kariyer.net/is-ilanlari/{ilSlug}?kw={q}", ilceAdres: "https://www.kariyer.net/is-ilanlari/{ilSlug}-{ilceSlug}?kw={q}" },
+  { ad: "Eleman.net", url: "https://www.eleman.net/is-ilanlari/{ilSlug}", ilceAdres: "https://www.eleman.net/is-ilanlari/{ilSlug}/{ilceSlug}", kelimeYok: true },
+  { ad: "Indeed TR", url: "https://tr.indeed.com/jobs?q={q}&l={yer}" },
+  { ad: "Google İş İlanları", url: "https://www.google.com/search?q={q}+i%C5%9F+ilan%C4%B1+{yer}&ibp=htl;jobs" },
+  { ad: "Yenibiris", url: "https://www.yenibiris.com/is-ilanlari/{ilSlug}", kelimeYok: true },
+  { ad: "LinkedIn", url: "https://www.linkedin.com/jobs/search/?keywords={q}&location={il}%2C%20T%C3%BCrkiye" },
+  { ad: "İŞKUR (ilini seç)", url: "https://esube.iskur.gov.tr/Istihdam/AcikIsIlanAra.aspx", kelimeYok: true }
+];

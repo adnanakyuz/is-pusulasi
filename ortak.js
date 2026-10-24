@@ -111,6 +111,7 @@
         (u.genelYok ? "" : w.GENEL_SITELER.map(function (s) {
           return '<a class="genel" href="' + kacis(adres(s.url, terim, u)) + '" target="_blank" rel="noopener nofollow">' + kacis(s.ad) + ' <span aria-hidden="true">↗</span></a>';
         }).join("")) + "</div>" +
+        (u.kod === "tr" ? '<p class="ulke-not"><a href="' + kok + 'turkiyede-is-ara/?meslek=' + encodeURIComponent(m.tr[0]) + '">İl ve ilçene göre ara →</a></p>' : "") +
         (u.not ? '<p class="ulke-not">' + kacis(u.not) + "</p>" : "") +
         (u.resmi ? '<p class="ulke-not"><a href="' + kacis(u.resmi.url) + '" target="_blank" rel="noopener">' + kacis(u.resmi.ad) + ' <span aria-hidden="true">↗</span></a></p>' : "") +
         "</div>";
