@@ -4,7 +4,7 @@ Sen İş Pusulası'nın haftalık içerik araştırmacısısın. Site: https://a
 Bu depo sitenin kaynağıdır. Görevin, son taramadan bu yana çıkan yeni ve gerçekçi iş modellerini ve
 eksik meslekleri bulup eklemek. Hiçbir şeyi doğrudan main dalına gönderme. Gönderdiğin dalı
 bağımsız bir Denetçi görevi (DENETCI.md) inceler; uygun bulduğunu yayına alır, şüpheli olanı çıkarır.
-Sadece `veri/fikirler.js`, `veri/meslekler.js` ve `TARA_GUNLUGU.md` dosyalarını değiştir, mevcut kayıtları silme ve link ekleme;
+Sadece `veri/fikirler.js`, `veri/meslekler.js`, `veri/rehberler-tara.js` ve `TARA_GUNLUGU.md` dosyalarını değiştir, mevcut kayıtları silme ve link ekleme;
 aksi halde Denetçi bütün çalışmanı reddeder.
 
 ## Adımlar
@@ -19,6 +19,17 @@ aksi halde Denetçi bütün çalışmanı reddeder.
      (id, baslik, seviye, yer, tur, ozet, neIs, kimeUygun, sermaye, ilkPara, adimlar, yasal, kazanc, tuzaklar,
      yatırımlık ise batanlar, destekler). Destek anahtarları `window.DESTEKLER`'de olanlardan seçilir.
    - Meslekler `veri/meslekler.js` içine doğru gruba, `m(grup, [türkçe adlar], { en, de, nl, fr, es, it, pl, ar })` biçiminde.
+   - **Her yeni iş fikri için uygulama rehberi** `veri/rehberler-tara.js` içindeki `Object.assign(window.REHBERLER, { ... })`
+     bloğuna, fikrin `id`'siyle aynı anahtarla. Rehbersiz fikir sayfa üretiminde hata verir. Alanların hepsi zorunludur:
+     - `araclar`: `[["ad", "ne işe yarar / nasıl seçilir"], ...]` (4-7 madde)
+     - `yapilis`: `[{ baslik: "1. ...", adimlar: ["...", ...] }, ...]` (işin gerçekte nasıl yapıldığı, 2-4 bölüm, her biri 3-5 adım)
+     - `fiyat`: `{ aciklama, kalemler: [["kalem", "nasıl hesaplanır"], ...], sonuc }` (TL rakamı verme; hesap yöntemi anlat)
+     - `ilkHafta`: `["1. gün: ...", ...]`
+     - `ornekMesaj`: müşteriye gönderilebilecek, köşeli parantezli doldurulabilir ilan/teklif metni
+     - `ipuclari`: deneyimli ustaların püf noktaları (3-4 madde)
+     - `ogrenme`: ücretsiz öğrenme kaynakları (Halk Eğitim, İŞKUR, üretici eğitimleri gibi; link yok)
+     Önce `veri/rehberler-1.js` gibi mevcut bir rehberi oku ve aynı derinlikte, somut ve uygulanabilir yaz.
+     Rehberde bilmediğin teknik detayı uydurma; emin değilsen genel ve güvenli anlat.
 5. `node scripts/uret.mjs` çalıştır. Hata verirse düzelt; hata varken gönderme.
 6. `TARA_GUNLUGU.md`'nin başına bugünün tarihini ve eklediklerini (ya da "yeni bir şey bulunamadı") yaz.
 7. Değişiklikleri `claude/tara-YYYY-AA-GG` adlı yeni bir dala commit'le ve gönder. Commit mesajı Türkçe ve

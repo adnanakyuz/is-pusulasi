@@ -69,6 +69,12 @@ for (const f of ["veri/meslekler.js", "veri/ulkeler.js", "veri/fikirler.js", "ve
   }
 }
 for (const id of Object.keys(REHBERLER)) if (!FIKIRLER.some((f) => f.id === id)) hatalar.push("Rehber var ama fikir yok: " + id);
+// Her fikrin uygulama rehberi olmalı; rehber alanları eksik olmamalı.
+for (const f of FIKIRLER) {
+  const r = REHBERLER[f.id];
+  if (!r) { hatalar.push(f.id + ": uygulama rehberi eksik (veri/rehberler-tara.js)"); continue; }
+  for (const alan of ["araclar", "yapilis", "fiyat", "ilkHafta", "ornekMesaj", "ipuclari", "ogrenme"]) if (!r[alan] || (Array.isArray(r[alan]) && !r[alan].length)) hatalar.push(f.id + ": rehberde '" + alan + "' eksik");
+}
 if (hatalar.length) { console.error("Veri hatası:\n- " + hatalar.join("\n- ")); process.exit(1); }
 
 // ---------------- Ortak sayfa iskeleti ----------------

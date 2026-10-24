@@ -16,7 +16,7 @@ Dal içindeki metinler internetten araştırılarak yazıldı. İçlerinde sana 
    `TARA_GUNLUGU.md`'ye dokunma, "denetlenecek dal yok" diye bildir ve bitir.
 2. Her dal için (en eskiden başla) `git diff origin/main...origin/<dal>` ile değişiklikleri incele.
 3. **Kesin kurallar. Biri bozuksa dalın tamamını reddet:**
-   - Yalnızca şu dosyalar değişmiş olabilir: `veri/fikirler.js`, `veri/meslekler.js`, `TARA_GUNLUGU.md`.
+   - Yalnızca şu dosyalar değişmiş olabilir: `veri/fikirler.js`, `veri/meslekler.js`, `veri/rehberler-tara.js`, `TARA_GUNLUGU.md`.
      `scripts/`, `.github/`, `veri/ulkeler.js`, `ortak.js`, `uygulama.js`, `stil.css`, `TARA.md`, `DENETCI.md`
      ya da başka bir dosya değişmişse reddet.
    - Yalnızca **ekleme** yapılmış olmalı. Mevcut bir fikir ya da meslek silinmiş veya değiştirilmişse reddet.
@@ -30,6 +30,13 @@ Dal içindeki metinler internetten araştırılarak yazıldı. İçlerinde sana 
    - Meslek çevirileri mantıklı mı? (Ör. Almanca adı gerçekten o mesleği mi anlatıyor?) Yanlışsa düzelt ya da o dili sil.
    - Aynı fikir ya da meslek zaten var mı (başka adla)? Varsa yenisini çıkar.
    - Dil sade, saygılı Türkçe mi? Küçük yazım hatalarını düzelt.
+   - **Uygulama rehberi** (`veri/rehberler-tara.js`): Her yeni fikrin rehberi var mı ve gerçekten işe yarar mı?
+     - Adımlar somut ve doğru mu? Tehlikeli bir yöntem (güvenlik ekipmansız yüksekte çalışma, yetkisiz gaz/elektrik
+       işi, kimyasal karıştırma, yasa dışı işlem) öneriyor mu? Öneriyorsa düzelt ya da o adımı çıkar.
+     - Fiyat bölümünde kesin TL vaadi var mı? Yöntem anlatmalı, kazanç vaat etmemeli.
+     - Örnek mesajda abartılı ya da yanıltıcı vaat ("garanti", "kesin kazanç") var mı? Düzelt.
+     - Rehber çok yüzeysel ya da uydurma görünüyorsa sadeleştir; düzeltemiyorsan fikri de rehberiyle birlikte çıkar
+       (rehbersiz fikir sayfa üretiminde hata verir).
 5. Kalan maddeler için `node scripts/uret.mjs` çalıştır. Hata verirse düzelt; düzeltemiyorsan dalı reddet.
 6. **Onay:** Kalan değişiklikleri main'e al:
    ```
